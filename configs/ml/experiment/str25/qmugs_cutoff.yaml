@@ -1,0 +1,14 @@
+# @package _global_
+
+defaults:
+  - str25/default
+  - override /data: qmugs_bin0_qm9_perturbed_fock
+  - override /model: graphformer_cutoff
+  - override /data/transforms: local_frames_global_natrep_cutoff
+
+tags: ["qmugs_bin0_qm9_perturbed_fock", "kin_plus_xc", "graphformer"]
+
+model:
+  net:
+    gnn_module:
+      n_layers: 8

@@ -1,0 +1,7 @@
+defaults:
+  - default
+
+dataset_name: QMUGSBin0
+
+basis_info:
+  atomic_numbers: [1, 6, 7, 8, 9]

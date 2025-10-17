@@ -1,0 +1,30 @@
+defaults:
+  - learning_rate_monitor
+  - model_checkpoint
+  #  - early_stopping
+  - model_summary
+  - rich_progress_bar
+  - print_overrides
+  - matplotlib_figures
+  - mesh_logging
+  - custom_scalars
+  #  - log_gradient_norm
+  - _self_
+
+interval: 1000
+
+model_checkpoint:
+  dirpath: ${paths.output_dir}/checkpoints
+  filename: "epoch_{epoch:03d}"
+  monitor: "val_loss/total"
+  mode: "min"
+  save_last: True
+  auto_insert_metric_name: False
+
+#early_stopping:
+#  monitor: "val_loss/total"
+#  patience: 100
+#  mode: "min"
+
+model_summary:
+  max_depth: -1

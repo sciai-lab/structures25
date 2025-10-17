@@ -1,0 +1,5 @@
+defaults:
+  - ddp
+
+plugins:
+  _target_: lightning.pytorch.plugins.environments.SLURMEnvironment

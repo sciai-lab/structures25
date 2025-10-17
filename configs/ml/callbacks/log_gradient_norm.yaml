@@ -1,0 +1,4 @@
+log_gradient_norm:
+  _target_: mldft.ml.callbacks.log_gradient_norm.LogGradientNorm
+log_parameter_norm:
+  _target_: mldft.ml.callbacks.log_gradient_norm.LogParameterNorm

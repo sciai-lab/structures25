@@ -1,0 +1,28 @@
+# https://hydra.cc/docs/configure_hydra/intro/
+
+# enable color logging
+defaults:
+  - override hydra_logging: colorlog
+  - override job_logging: colorlog
+
+# output directory, generated dynamically on each run
+run:
+  dir: ${oc.env:DFT_DATA}/${dataset.name}/logs/${now:%Y-%m-%d}_${now:%H-%M-%S}
+
+sweep:
+  dir: ${oc.env:DFT_DATA}/${dataset.name}/multirun_logs/${now:%Y-%m-%d}_${now:%H-%M-%S}
+  subdir: ${hydra.job.num}
+
+job_logging:
+  handlers:
+    file:
+      # Incorporates fix from https://github.com/facebookresearch/hydra/pull/2242
+      filename: ${hydra.runtime.output_dir}/${task_name}.log
+
+callbacks:
+  git_logging:
+    _target_: mldft.utils.log_utils.hydra_callbacks.GitInfo
+
+job:
+  env_set:
+    HYDRA_FULL_ERROR: "1"

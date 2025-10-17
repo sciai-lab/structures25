@@ -1,0 +1,8 @@
+# @package _global_
+
+defaults:
+  - str25/default
+  - override /model: graphformer_cutoff_hierarc_energies_tf
+  - override /data/transforms: local_frames_global_natrep_cutoff_add_lframes
+
+tags: ["qm9_perturbed_fock", "kin_plus_xc", "graphformer"]

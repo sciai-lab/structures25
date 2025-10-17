@@ -1,0 +1,22 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+# Disable logging and creating an output directory
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+task_name: ofdft
+
+n_molecules: null # null corresponds to None and will plot all molecules in the directory
+swarm_plot_subsample: 1.0 # specifies the fraction of subsampled swarm plots
+plot_l1_norm: True
+
+# has to be specified via Command Line
+sample_dir: null
+out_pdf_path: null

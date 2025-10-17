@@ -1,0 +1,7 @@
+_target_: mldft.datagen.datasets.qm9.QM9
+name: QM9
+filename: qm9
+
+raw_data_dir: ${oc.env:DFT_DATA}/${dataset.name}/raw/
+kohn_sham_data_dir: ${oc.env:DFT_DATA}/${dataset.name}/kohn_sham/
+label_dir: ${oc.env:DFT_DATA}/${dataset.name}/labels/

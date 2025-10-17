@@ -1,0 +1,11 @@
+defaults:
+  - default
+
+_target_: mldft.ofdft.optimizer.TorchOptimizer
+
+torch_optimizer:
+  _target_: torch.optim.SGD
+  _partial_: true
+
+lr: 3e-3
+momentum: 0.9

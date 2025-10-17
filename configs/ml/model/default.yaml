@@ -1,0 +1,20 @@
+_target_: mldft.ml.models.mldft_module.MLDFTLitModule
+
+defaults:
+  - optimizer: adamw
+  - loss_function: l1
+  - scheduler: cosine
+
+variational: true
+target_key: ${data.target_key}
+compile: false
+
+basis_info: ${data.basis_info}
+
+# Configures how frequently metrics are evaluated
+metric_interval: 1
+
+# Configures how often the logging mixins are called. Set to None to disable.
+logging_mixin_interval: 1000
+# Setting this to true will show the logging mixins in the progress bar, can be useful for debugging.
+show_logging_mixins_in_progress_bar: false

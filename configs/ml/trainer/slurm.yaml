@@ -1,0 +1,5 @@
+defaults:
+  - default
+
+plugins:
+  _target_: lightning.pytorch.plugins.environments.SLURMEnvironment

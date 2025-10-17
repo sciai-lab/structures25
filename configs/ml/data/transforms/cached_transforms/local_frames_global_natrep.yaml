@@ -1,0 +1,13 @@
+# This name determines the directory used to load the data during training
+name: local_frames_global_${data.natural_reparametrization.orthogonalization}_natrep
+
+# These are applied if caching is off as the very first transforms
+additional_pre_transforms:
+  - _target_: mldft.ml.data.components.convert_transforms.AddOverlapMatrix
+    basis_info: ${data.basis_info}
+
+transforms:
+  - _target_: mldft.ml.data.components.basis_transforms.ToLocalFrames
+    sparse: false
+  - _target_: mldft.ml.data.components.basis_transforms.ToGlobalNatRep
+    orthogonalization: ${data.natural_reparametrization.orthogonalization}

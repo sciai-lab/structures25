@@ -1,0 +1,137 @@
+[build-system]
+requires = ["uv_build>=0.9.0,<0.10.0"]
+build-backend = "uv_build"
+
+[project]
+name = "mldft"
+version = "0.0.1"
+description = "OF-DFT using machine learning"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+authors = [
+    {name = "Scientific AI (Hamprecht Lab, Heidelberg University)"},
+]
+urls = {homepage = "https://github.com/sciai-lab/structures25"}
+
+dependencies = [
+    "scikit-learn",
+    "geometric",
+    "zarr==2.18.4",
+    "numcodecs==0.15",
+    "pyscf==2.4.0",
+    "notebook",
+    "hydra-core>=1.0.0,<2.0.0",
+    "numpy",
+    "rdkit",
+    "polars",
+    "rich>=13.0.0,<14.0.0",
+    "h5py",
+    "tensorboard",
+    "hydra-optuna-sweeper",
+    "hydra-colorlog",
+    "rootutils",
+    "loguru",
+    "opt-einsum",
+    "tqdm",
+    "gpustat",
+    "ase>=3.19",
+    "sphinx",
+    "sphinx-rtd-theme",
+    "pyvista[all]",
+    "basis-set-exchange",
+    "pypdf",
+    "gitpython",
+    "seaborn",
+    "lmdb",
+    # Torch
+    "torch==2.4.1",
+    "torchvision==0.19.1",
+    "torchaudio==2.4.1",
+    "lightning==2.5.0",
+    "torch-geometric==2.6.1",
+    "e3nn",
+    "torchmetrics>=0.0.0,<1.0.0",
+    "huggingface_hub==0.*",
+]
+
+[dependency-groups]
+pyg = [
+    "torch-scatter @ https://data.pyg.org/whl/torch-2.4.0+cu124/torch_scatter-2.1.2+pt24cu124-cp311-cp311-linux_x86_64.whl ; python_version=='3.11'",
+    "torch-scatter @ https://data.pyg.org/whl/torch-2.4.0+cu124/torch_scatter-2.1.2+pt24cu124-cp312-cp312-linux_x86_64.whl ; python_version=='3.12'",
+    "torch-sparse @ https://data.pyg.org/whl/torch-2.4.0+cu124/torch_sparse-0.6.18+pt24cu124-cp311-cp311-linux_x86_64.whl ; python_version=='3.11'",
+    "torch-sparse @ https://data.pyg.org/whl/torch-2.4.0+cu124/torch_sparse-0.6.18+pt24cu124-cp312-cp312-linux_x86_64.whl ; python_version=='3.12'",
+    "torch-cluster @ https://data.pyg.org/whl/torch-2.4.0+cu124/torch_cluster-1.6.3+pt24cu124-cp311-cp311-linux_x86_64.whl ; python_version=='3.11'",
+    "torch-cluster @ https://data.pyg.org/whl/torch-2.4.0+cu124/torch_cluster-1.6.3+pt24cu124-cp312-cp312-linux_x86_64.whl ; python_version=='3.12'",
+]
+
+pyg-cpu = [
+    # Linux CPU builds
+    "torch-scatter @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_scatter-2.1.2+pt24cpu-cp311-cp311-linux_x86_64.whl ; python_version=='3.11' and sys_platform=='linux'",
+    "torch-scatter @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_scatter-2.1.2+pt24cpu-cp312-cp312-linux_x86_64.whl ; python_version=='3.12' and sys_platform=='linux'",
+    "torch-sparse @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_sparse-0.6.18+pt24cpu-cp311-cp311-linux_x86_64.whl ; python_version=='3.11' and sys_platform=='linux'",
+    "torch-sparse @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_sparse-0.6.18+pt24cpu-cp312-cp312-linux_x86_64.whl ; python_version=='3.12' and sys_platform=='linux'",
+    "torch-cluster @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_cluster-1.6.3+pt24cpu-cp311-cp311-linux_x86_64.whl ; python_version=='3.11' and sys_platform=='linux'",
+    "torch-cluster @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_cluster-1.6.3+pt24cpu-cp312-cp312-linux_x86_64.whl ; python_version=='3.12' and sys_platform=='linux'",
+    # macOS CPU builds
+    "torch-scatter @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_scatter-2.1.2-cp311-cp311-macosx_10_9_universal2.whl ; python_version=='3.11' and sys_platform=='darwin'",
+    "torch-scatter @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_scatter-2.1.2-cp312-cp312-macosx_10_9_universal2.whl ; python_version=='3.12' and sys_platform=='darwin'",
+    "torch-sparse @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_sparse-0.6.18-cp311-cp311-macosx_11_0_universal2.whl ; python_version=='3.11' and sys_platform=='darwin'",
+    "torch-sparse @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_sparse-0.6.18-cp312-cp312-macosx_11_0_universal2.whl ; python_version=='3.12' and sys_platform=='darwin'",
+    "torch-cluster @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_cluster-1.6.3-cp311-cp311-macosx_10_9_universal2.whl ; python_version=='3.11' and sys_platform=='darwin'",
+    "torch-cluster @ https://data.pyg.org/whl/torch-2.4.0+cpu/torch_cluster-1.6.3-cp312-cp312-macosx_10_9_universal2.whl ; python_version=='3.12' and sys_platform=='darwin'",
+]
+
+tensorframes = [
+    "tensorframes @ git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d#"
+]
+
+dev = [
+    "pre-commit>=4.0.0,<5.0.0",
+    "pytest>=7.0.0,<8.0.0",
+]
+
+[project.scripts]
+mldft_ks = "mldft.datagen.kohn_sham_dataset:main"
+mldft_labelgen = "mldft.datagen.generate_labels_dataset:main"
+mldft_train = "mldft.ml.train:main"
+mldft_denop = "mldft.ofdft.run_density_optimization:main"
+mldft = "mldft.api.cli_ofdft:main"
+mldft_setup = "mldft.api.setup:main"
+
+[tool.pytest.ini_options]
+addopts = [
+  "--color=yes",
+  "--durations=0",
+  "--strict-markers",
+  "--doctest-modules",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::UserWarning",
+]
+log_cli = true
+markers = [
+  "slow: slow tests",
+]
+minversion = "6.0"
+testpaths = "tests/"
+
+[tool.isort]
+known_first_party = ["mldft"]
+profile = "black"
+
+
+[tool.uv]
+conflicts = [
+  [ { group = "pyg" }, { group = "pyg-cpu" } ],
+]
+default-groups = ["dev", "pyg", "tensorframes"]
+
+[tool.uv.build-backend]
+module-root = ""
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true

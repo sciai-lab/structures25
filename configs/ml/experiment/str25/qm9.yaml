@@ -1,0 +1,6 @@
+# @package _global_
+
+defaults:
+  - str25/default
+
+tags: ["qm9_perturbed_fock", "kin_plus_xc", "graphformer"]

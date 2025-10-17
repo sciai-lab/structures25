@@ -1,0 +1,29 @@
+_target_: mldft.ml.models.components.loss_function.WeightedLoss
+energy_loss:
+  weight: 0.1
+  loss:
+    _target_: mldft.ml.models.components.loss_function.EnergyLoss
+    loss_function:
+      _target_: torch.nn.L1Loss
+      reduction: none
+    sample_weigher:
+      _target_: mldft.ml.models.components.sample_weighers.HasEnergyLabelSampleWeigher
+
+gradient_loss:
+  weight: 0.9
+  loss:
+    _target_: mldft.ml.models.components.loss_function.EnergyGradientLoss
+    loss_function:
+      _target_: torch.nn.L1Loss
+      reduction: none
+    sample_weigher:
+      _target_: mldft.ml.models.components.sample_weighers.HasEnergyLabelSampleWeigher # has energy label <=> has gradient label
+
+coefficient_loss:
+  weight: 0
+  loss:
+    _target_: mldft.ml.models.components.loss_function.CoefficientLoss
+    loss_function:
+      _target_: torch.nn.L1Loss
+      reduction: none
+    sample_weigher: null # use all samples for coefficient loss

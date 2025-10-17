@@ -1,0 +1,56 @@
+# @package _global_
+
+# specify here default configuration
+# order of defaults determines the order in which configs override each other
+defaults:
+  - data: qm9
+  - paths: default
+  - extras: default
+  - hydra: default
+  # config for hyperparameter optimization
+  - hparams_search: null
+  # optional local config for machine/user specific settings
+  # it's optional since it doesn't need to exist and is excluded from version control
+  - optional local: default
+  # apply settings in here last, overriding e.g. transforms
+  - _self_
+
+# additional path to save the statistics at, by default it is saved at the location from where it would be loaded
+# using the current config
+extra_save_path: ${data.dataset_statistics.path}
+overwrite: true
+
+# task name, determines output directory path
+task_name: "statistics"
+
+# run name, determines suffix of output directory path
+name: ""
+
+# tags to help you identify your experiments
+# you can overwrite this in experiment configs
+# overwrite from command line with `python train.py tags="[first_tag, second_tag]"`
+tags: ["dev"]
+
+# seed for random number generators in pytorch, numpy and python.random
+seed: null
+
+data:
+  datamodule:
+    # turning off shuffling is important if not fitting to the entire dataset,
+    # as we want to encounter the same part of the dataset in each of the loops during statistics computation
+    shuffle_train: false
+
+statistic_fitter_kwargs:
+  n_batches: # use all batches by default
+  atom_ref_fit_sample_weighers:
+    - _target_: mldft.ml.models.components.sample_weighers.HasEnergyLabelSampleWeigher
+    - _target_: mldft.ml.models.components.sample_weighers.MinSCFIterationSampleWeigher
+      min_scf_iteration: 3
+    - _target_: mldft.ml.models.components.sample_weighers.MinSCFIterationSampleWeigher
+      min_scf_iteration: 5
+    - _target_: mldft.ml.models.components.sample_weighers.GroundStateOnlySampleWeigher
+  initial_guess_sample_weighers:
+    - _target_: mldft.ml.models.components.sample_weighers.ConstantSampleWeigher
+    - _target_: mldft.ml.models.components.sample_weighers.InitialGuessOnlySampleWeigher
+    - _target_: mldft.ml.models.components.sample_weighers.MinSCFIterationSampleWeigher
+      min_scf_iteration: 3

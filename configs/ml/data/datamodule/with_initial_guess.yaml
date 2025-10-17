@@ -1,0 +1,6 @@
+defaults:
+  - default
+
+dataset_kwargs:
+  limit_scf_iterations: null # filter out certain SCF iterations, see the docstring of `OFDataset`
+  keep_initial_guess: true # whether to keep the first iteration regardless of `limit_scf_iterations`

@@ -1,0 +1,7 @@
+# @package _global_
+
+dataset_name: QM9
+initialization: perturbed_label_0.015
+n_molecules: 1000
+
+molecule_choice: always_3

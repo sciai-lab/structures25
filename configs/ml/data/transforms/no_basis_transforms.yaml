@@ -1,0 +1,26 @@
+# See other config files for more detailed comments
+_target_: mldft.ml.data.components.basis_transforms.MasterTransformation
+name: no_basis_transforms
+
+use_cached_data: True # if true, load from cache, if false, compute online
+defaults:
+  - cached_transforms: none
+
+pre_transforms:
+  # required before ToTorch for natural reparametrization
+  # - _target_: mldft.ml.data.components.convert_transforms.AddOverlapMatrix
+  #  basis_info: ${data.basis_info}
+  - _target_: mldft.ml.data.components.convert_transforms.ToTorch
+    float_dtype: torch.float64
+  # not required for loss (difference is projected there), but makes sense for visualization and is cheap enough
+  - _target_: mldft.ml.data.components.convert_transforms.ProjectGradient
+  # - _target_: mldft.ml.data.components.convert_transforms.AddAtomCooIndices # required for local frames
+  - _target_: mldft.ml.data.components.convert_transforms.AddFullEdgeIndex # required for message passing layers
+
+basis_transforms: []
+
+post_transforms:
+  # Transform to the default torch dtype, float32 for training, float64 elsewhere
+  - _target_: mldft.ml.data.components.convert_transforms.ToTorch
+
+add_transformation_matrix: false

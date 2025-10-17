@@ -1,0 +1,28 @@
+_target_: mldft.ml.data.components.basis_transforms.MasterTransformation
+# name determines which dataset statistic is used or computed
+name: local_frames_global_${data.natural_reparametrization.orthogonalization}_natrep
+use_cached_data: True # if true, load from cache, if false, compute online
+
+# Cached transforms, determines the directory used to load the data during training
+defaults:
+  - cached_transforms: local_frames_global_natrep
+
+pre_transforms:
+  # If there is a basis transform we do to torch with float64 before the basis transform and to float32 after
+  - _target_: mldft.ml.data.components.convert_transforms.ToTorch
+    float_dtype: torch.float64
+  # not required for loss (difference is projected there), but makes sense for visualization and is cheap enough
+  - _target_: mldft.ml.data.components.convert_transforms.ProjectGradient
+  #- _target_: mldft.ml.data.components.convert_transforms.AddAtomCooIndices # required for sparse local frames
+  - _target_: mldft.ml.data.components.convert_transforms.AddRadiusEdgeIndex # required for message passing layers
+    radius: ${data.cutoff}
+  - _target_: mldft.ml.data.components.basis_transforms.AddLocalFrames
+
+# Online basis transforms
+basis_transforms: []
+
+post_transforms:
+  # Transform to the default torch dtype, float32 for training, float64 elsewhere
+  - _target_: mldft.ml.data.components.convert_transforms.ToTorch
+
+add_transformation_matrix: False

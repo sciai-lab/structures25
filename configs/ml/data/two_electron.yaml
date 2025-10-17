@@ -1,0 +1,12 @@
+defaults:
+  - default
+
+dataset_name: TwoElectron
+
+basis_info:
+  _target_: mldft.ml.data.components.basis_info.BasisInfo.from_dataset_info_yaml
+  path_to_data_info: ${oc.env:DFT_DATA}/${data.dataset_name}/dataset_info.yaml
+  atomic_numbers: [1, 2] # H, He
+
+datamodule:
+  batch_size: 1

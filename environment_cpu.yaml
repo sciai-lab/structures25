@@ -1,0 +1,73 @@
+# reasons you might want to use `environment.yaml` instead of `requirements.txt`:
+# - pip installs packages in a loop, without ensuring dependencies across all packages
+#   are fulfilled simultaneously, but conda achieves proper dependency control across
+#   all packages
+# - conda allows for installing packages without requiring certain compilers or
+#   libraries to be available in the system, since it installs precompiled binaries
+
+name: mldft
+
+channels:
+  - pytorch
+  - pyscf
+  - conda-forge
+  - defaults
+
+# it is strongly recommended to specify versions of packages installed through conda
+# to avoid situation when version-unspecified packages install their latest major
+# versions which can sometimes break things
+
+# current approach below keeps the dependencies in the same major versions across all
+# users, but allows for different minor and patch versions of packages where backwards
+# compatibility is usually guaranteed
+
+dependencies:
+  - python=3.11
+  - pyscf=2.4.0
+  - jupyter
+  - pytorch=2.4.1
+  - torchvision=0.*
+  - cpuonly
+  - lightning=2.5.0
+  - torchmetrics=0.*
+  - hydra-core=1.*
+  - numpy
+  - rdkit
+  - rich=13.*
+  - pre-commit=3.*
+  - pytest=7.*
+  - pytest-cov
+  - h5py
+  - tensorboard
+  - e3nn
+  - opt_einsum
+  - tqdm
+  - nodejs # just for yaml formatting pre-commit
+  - sphinx
+  - sphinx-rtd-theme
+  - zarr=2.18.4
+  - ipytree
+  - sqlalchemy=1.4.46
+  - mysqlclient
+  - umap-learn
+  - pypdf
+  - seaborn
+  - python-lmdb
+  - geometric
+
+  - pip>=23
+  - pip:
+      - pyvista[all]
+      - hydra-optuna-sweeper
+      - hydra-colorlog
+      - rootutils
+      - ase>=3.19
+      - polars
+      - loguru
+      - basis_set_exchange
+      - torch_scatter
+      - torch_cluster
+      - torch_sparse
+      - torch_geometric==2.6.1
+      - gitpython
+      - huggingface_hub==0.*

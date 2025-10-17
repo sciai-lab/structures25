@@ -1,0 +1,7 @@
+# @package _global_
+defaults:
+  - override /dataset: qmugs_large_bins
+
+kohn_sham:
+  grid_level: 2
+  convergence_tolerance: 0.0000367493 # 1e-9 pyscf default, other possibility is 1meV 0.0000367493

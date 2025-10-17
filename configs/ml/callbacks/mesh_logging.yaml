@@ -1,0 +1,11 @@
+molecule_mesh_logging:
+  log_initial_guess: true
+  log_gradient: true
+  log_random_basis_functions: false
+  _target_: mldft.ml.callbacks.mesh_logging.LogMolecule
+  train_timing:
+    _target_: mldft.ml.callbacks.timing.EveryIncreasingInterval
+    initial_interval: ${callbacks.interval}
+  val_timing:
+    _target_: mldft.ml.callbacks.timing.EveryIncreasingInterval
+    initial_interval: ${callbacks.interval}

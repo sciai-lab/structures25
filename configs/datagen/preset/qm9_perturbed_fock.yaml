@@ -1,0 +1,6 @@
+# @package _global_
+dataset:
+  name: QM9_perturbed_fock
+
+kohn_sham:
+  use_perturbation: true

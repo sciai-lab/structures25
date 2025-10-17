@@ -1,0 +1,8 @@
+# @package _global_
+
+# enforce clean working directory to ensure reproducibility
+hydra:
+  callbacks:
+    git_logging:
+      _target_: mldft.utils.log_utils.hydra_callbacks.GitInfo
+      clean: true

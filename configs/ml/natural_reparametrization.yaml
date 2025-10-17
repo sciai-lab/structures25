@@ -1,0 +1,35 @@
+# @package _global_
+
+# specify here default configuration
+# order of defaults determines the order in which configs override each other
+defaults:
+  - data: qm9
+  - paths: default
+  - extras: default
+  - hydra: default
+  #config for hyperparameter optimization
+
+  - hparams_search: null
+  # optional local config for machine/user specific settings
+
+  # it's optional since it doesn't need to exist and is excluded from version control
+  - optional local: default
+
+  # apply settings in here last, overriding e.g. transforms
+  - _self_
+
+orthogonalization: symmetric # or canonical
+
+# task name, determines output directory path
+task_name: "natural reparametrization"
+
+# run name, determines suffix of output directory path
+name: ""
+
+# tags to help you identify your experiments
+# you can overwrite this in experiment configs
+# overwrite from command line with `python train.py tags="[first_tag, second_tag]"`
+tags: ["dev"]
+
+# seed for random number generators in pytorch, numpy and python.random
+seed: null

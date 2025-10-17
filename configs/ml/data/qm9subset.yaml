@@ -1,0 +1,9 @@
+defaults:
+  - default
+
+dataset_name: QM9subset
+
+basis_info:
+  _target_: mldft.ml.data.components.basis_info.BasisInfo.from_dataset_info_yaml
+  path_to_data_info: ${oc.env:DFT_DATA}/${data.dataset_name}/dataset_info.yaml
+  atomic_numbers: [1, 6, 7, 8, 9] # H, C, N, O, F, for QM9

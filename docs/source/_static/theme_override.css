@@ -1,0 +1,22 @@
+/* override table width restrictions as found on https://github.com/getpelican/pelican/issues/1311 */
+.wy-table-responsive table td, .wy-table-responsive table th {
+    /* !important prevents the common CSS stylesheets from
+       overriding this as on RTD they are loaded after this stylesheet */
+    white-space: normal !important;
+}
+
+.wy-table-responsive {
+    overflow: visible !important;
+}
+
+
+.wy-nav-content {
+    max-width: none;
+}
+
+@media screen and (min-width: 1400px) {
+    .document {
+        max-width: 55%;
+        margin-left: 5%;
+    }
+}

@@ -1,0 +1,4 @@
+# This name determines the directory used to load the data during training, none will use "label"
+name: none
+
+transforms: []

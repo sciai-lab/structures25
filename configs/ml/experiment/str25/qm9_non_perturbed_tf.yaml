@@ -1,0 +1,12 @@
+# @package _global_
+
+defaults:
+  - str25/default
+  - override /model: graphformer_tf
+  - override /data: qm9
+  - override /data/transforms: local_frames_global_natrep_add_lframes
+
+tags: ["qm9_perturbed_fock", "kin_plus_xc", "graphformer"]
+
+trainer:
+  max_epochs: 161

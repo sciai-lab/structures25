@@ -1,0 +1,10 @@
+defaults:
+  - graphformer_tf
+
+net:
+  node_embedding_module:
+    cutoff: ${data.cutoff}
+    cutoff_start: ${data.cutoff_start}
+  gnn_module:
+    cutoff: ${data.cutoff}
+    cutoff_start: ${data.cutoff_start}

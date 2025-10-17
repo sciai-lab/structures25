@@ -1,0 +1,22 @@
+defaults:
+  - datamodule: default
+  - transforms: local_frames_global_natrep
+
+target_key: kin_plus_xc # possible options: kin, kin_minus_apbe, kin_plus_xc, tot
+
+dataset_statistics:
+  _target_: mldft.ml.preprocess.dataset_statistics.DatasetStatistics
+  path: ${oc.env:DFT_DATA}/${data.dataset_name}/dataset_statistics/dataset_statistics_labels_${data.transforms.name}_${data.datamodule.dataset_kwargs.energy_key}.zarr
+
+natural_reparametrization:
+  orthogonalization: symmetric
+
+basis_info:
+  _target_: mldft.ml.data.components.basis_info.BasisInfo.from_dataset_info_yaml
+  path_to_data_info: ${oc.env:DFT_DATA}/${data.dataset_name}/dataset_info.yaml
+  atomic_numbers: [1, 6, 7, 8, 9] # H, C, N, O, F, for QM9
+
+# Saved here to reference from multiple places
+# cutoff is only used inside the cutoff transforms and when using a node embedding or g3d_layer with cutoff not set to null
+cutoff: 6.0
+cutoff_start: 0.0

@@ -1,0 +1,8 @@
+# @package _global_
+
+defaults:
+  - str25/default
+  - override /model: graphformer_hierarc_energies
+  - override /data/transforms: local_frames_global_natrep_cutoff
+
+tags: ["qm9_perturbed_fock", "kin_plus_xc", "graphformer"]

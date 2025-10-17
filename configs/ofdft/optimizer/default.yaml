@@ -1,0 +1,4 @@
+# stop the optimization when the gradient norm is smaller than this value
+convergence_tolerance: 1e-4
+
+max_cycle: 10000

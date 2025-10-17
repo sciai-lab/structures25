@@ -1,0 +1,7 @@
+# The only reason to use the Adam optimizer is to do exactly what M-OFDFT does.
+
+# use same kwargs as for AdamW
+defaults:
+  - adamw
+
+_target_: torch.optim.Adam

@@ -1,0 +1,48 @@
+# @package _global_
+defaults:
+  - _self_
+  - dataset: qm9 # name of the dataset yaml file
+  - label_src: ks_iterations
+  - extras: default
+  - hydra: default
+  - preset: null
+
+task_name: datagen
+
+# Kohn Sham Settings
+kohn_sham:
+  basis: "6-31G(2df,p)"
+  xc: "PBE"
+  initialization: "minao"
+  grid_level: 3
+  prune_method: "nwchem_prune"
+  density_fit_basis: "def2-universal-jfit"
+  density_fit_threshold: 30
+  convergence_tolerance: 1e-9 # pyscf default, other possibility is 1meV 0.0000367493
+  use_perturbation: False
+  perturbation_cfg:
+    start_std: 0.1
+    end_std: 0.002
+    start_cycle: 4
+    end_cycle: 24
+    of_basis_set: ${of_basis_set}
+
+# Density Fitting Method
+density_fitting_method: "hartree+external_mofdft"
+of_basis_set: "even_tempered_2.5"
+
+# Specify how many and which molecules to generate
+n_molecules: 1
+start_idx: 0
+
+# Specify how many processes and threads, will be configured automatically if not specified
+num_processes: ???
+num_threads_per_process: 1
+max_memory_per_process: ???
+# If you suspect corrupted files, set this to true to check them
+verify_files: False
+remove_broken_files: True
+# The file used for logging, will be generated automatically
+log_file: ${hydra:runtime.output_dir}/${task_name}.log
+log_level: INFO
+config_file: ${hydra:runtime.output_dir}/config.yaml

@@ -1,0 +1,24 @@
+_target_: mldft.ml.data.datamodule.OFDataModule
+transforms: ${data.transforms}
+split_file: ${oc.env:DFT_DATA}/${data.dataset_name}/split.pkl
+data_dir: ${oc.env:DFT_DATA}
+basis_info: ${data.basis_info}
+# Dataloader settings
+batch_size: 128
+num_workers: 8
+pin_memory: false
+shuffle_train: true
+shuffle_val: false
+shuffle_test: false
+# Dataset settings
+dataset_kwargs:
+  add_irreps: true # required for local frames
+  cache_in_memory: false # disable caching by default; for small datasets, it should be turned on.
+  energy_key: e_${data.target_key} # current options: e_kin, e_kin_minus_apbe, e_kin_plus_xc, e_tot
+  gradient_key: grad_${data.target_key} # current options: grad_kin, grad_kin_minus_apbe, grad_kin_plus_xc, grad_tot
+  limit_scf_iterations: 1 # filter out certain SCF iterations, see the docstring of `OFDataset`
+  keep_initial_guess: false # whether to keep the first iteration regardless of `limit_scf_iterations`
+
+dataloader_kwargs:
+  follow_batch: ["coeffs", "atomic_numbers"]
+  list_keys: ["overlap_matrix"] # , "coulomb_matrix", "aos"] # we put these as default, if they are not in the sample nothing happens

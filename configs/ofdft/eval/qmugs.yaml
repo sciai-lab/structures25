@@ -1,0 +1,10 @@
+# @package _global_
+
+split_file_path: ${oc.env:DFT_DATA}/QMUGSBin0QM9_perturbed_fock/split.pkl
+enable_grid_operations: False
+split: "test"
+n_molecules: 850
+
+optimizer:
+  lr: 1.5e-3
+  max_cycle: 5000

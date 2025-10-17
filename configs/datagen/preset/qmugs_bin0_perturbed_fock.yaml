@@ -1,0 +1,15 @@
+# @package _global_
+
+dataset:
+  _target_: mldft.datagen.datasets.qmugs.QMUGSBin
+  name: QMUGS
+  filename: qmugs
+  raw_data_dir: ${oc.env:DFT_DATA}/QMUGS/raw
+  kohn_sham_data_dir: ${oc.env:DFT_DATA}/QMUGS_perturbed_fock/kohn_sham
+  label_dir: ${oc.env:DFT_DATA}/QMUGS_perturbed_fock/labels
+  bin: 0
+
+kohn_sham:
+  grid_level: 2
+  convergence_tolerance: 0.0000367493 # 1e-9 pyscf default, other possibility is 1meV 0.0000367493
+  use_perturbation: true

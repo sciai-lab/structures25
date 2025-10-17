@@ -1,0 +1,24 @@
+defaults:
+  - graphformer
+
+net:
+  energy_mlp:
+    _target_: mldft.ml.models.components.graphformer.MLPStack
+    mlp_class:
+      _partial_: true
+      _target_: mldft.ml.models.components.mlp.MLP
+    n_mlps: 2 # has to be equal to n_layers / energy_readout_every
+    in_channels: 768
+    hidden_channels: [768, 1]
+    activation_layer:
+      _target_: hydra.utils.get_class
+      path: torch.nn.SiLU
+    dropout: 0.
+    disable_dropout_last_layer: True
+    disable_activation_last_layer: True
+    disable_norm_last_layer: True
+  node_embedding_module:
+    cutoff: null
+  gnn_module:
+    cutoff: null
+    energy_readout_every: 2

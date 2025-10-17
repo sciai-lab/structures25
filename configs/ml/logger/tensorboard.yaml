@@ -1,0 +1,11 @@
+# https://www.tensorflow.org/tensorboard/
+
+tensorboard:
+  _target_: lightning.pytorch.loggers.tensorboard.TensorBoardLogger
+  save_dir: ${paths.output_dir}
+  max_queue: 10000
+  name: null
+  log_graph: False
+  default_hp_metric: False
+  prefix: ""
+  version: ""

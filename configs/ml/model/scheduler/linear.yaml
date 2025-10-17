@@ -1,0 +1,5 @@
+_target_: torch.optim.lr_scheduler.LinearLR
+_partial_: true
+start_factor: 1
+end_factor: 0
+total_iters: ${trainer.max_epochs} # defaults to the number of epochs

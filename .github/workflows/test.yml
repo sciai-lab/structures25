@@ -1,0 +1,51 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+  workflow_dispatch:
+
+env:
+  DFT_DATA: ${{ github.workspace }}/data
+  DFT_MODELS: ${{ github.workspace }}/models
+
+jobs:
+  run_tests_ubuntu:
+    if: (github.event_name == 'pull_request' && github.event.pull_request.draft == false) || github.event_name == 'push'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        python-version: ["3.12"]
+
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up uv
+        id: setup-uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.9.0"
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+
+      - name: Sync project dependencies
+        run: uv sync --group pyg-cpu --no-group pyg
+
+      - name: Install sh helper
+        run: uv pip install sh
+
+      - name: List dependencies
+        run: uv pip list
+
+      - name: Run pytest
+        run: uv run pytest -m "not slow" -v

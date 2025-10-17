@@ -1,0 +1,7 @@
+_target_: mldft.datagen.datasets.qmugs.QMUGS30
+name: QMUGS
+filename: qmugs
+
+raw_data_dir: ${oc.env:DFT_DATA}/${dataset.name}/raw
+kohn_sham_data_dir: ${oc.env:DFT_DATA}/${dataset.name}/kohn_sham
+label_dir: ${oc.env:DFT_DATA}/${dataset.name}/labels

@@ -1,0 +1,65 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - optimizer: gradient_descent_torch
+  - extras: default
+  - hydra: default
+  - eval: null
+
+task_name: ofdft
+# Needs to be set via command line
+run_path: null
+
+# Can be set to use different run for the guess
+guess_path: null
+
+dataset_name: null
+
+initialization: "sad"
+xc_functional: "PBE"
+
+convergence_criterion: "last_iter"
+
+# You can either use the best or the last checkpoint
+use_last_ckpt: True
+n_molecules: 1
+molecule_choice: "seeded_random" # 'random', 'seeded_random', 'first_n' or a list of indices.
+seed: 0
+device: cuda
+transform_device: cuda
+model_dtype: torch.float64
+num_devices: 1
+num_processes_per_device: 1
+num_workers_per_process: 0
+num_threads_per_process: 8
+
+log_file: ${hydra:runtime.output_dir}/${task_name}.log
+config_file: ${hydra:runtime.output_dir}/config.yaml
+
+enable_grid_operations: True
+
+save_denop: True
+save_denop_samples: True
+plot_every_n: 10
+swarm_plot_subsample: 1.0
+plot_l1_norm: ${enable_grid_operations}
+l1_grid_level: 3
+l1_grid_prune: "nwchem_prune"
+
+ofdft_kwargs:
+  normalize_initial_guess: True
+  grid_level: # e.g. 3.
+  grid_prune: # e.g. nwchem
+  grid_check: ${enable_grid_operations}
+  max_xc_memory: 4000
+
+negative_integrated_density_penalty_weight: 0.0 # 1000.0
+
+base_dir: ${oc.env:DFT_MODELS}/${task_name}/${path_to_basename:${run_path}}
+
+split: val
+split_file_path: null
+
+fail_fast: False
+save_coeff_interval: 100

@@ -1,0 +1,10 @@
+# @package _global_
+
+defaults:
+  - str25/default
+  - override /data: qm9
+
+tags: ["qm9", "kin_plus_xc", "graphformer"]
+
+trainer:
+  max_epochs: 161

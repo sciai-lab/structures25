@@ -1,0 +1,12 @@
+# See other config files for more detailed comments
+_target_: mldft.ml.data.components.basis_transforms.MasterTransformation
+name: none
+use_cached_data: True # if true, load from cache, if false, compute online
+
+defaults:
+  - cached_transforms: none
+
+pre_transforms: []
+basis_transforms: []
+post_transforms: []
+add_transformation_matrix: false

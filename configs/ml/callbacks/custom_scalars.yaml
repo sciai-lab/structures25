@@ -1,0 +1,2 @@
+custom_scalars:
+  _target_: mldft.ml.callbacks.custom_scalars.AddMetricAndLossCustomScalars

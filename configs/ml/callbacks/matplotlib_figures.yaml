@@ -1,0 +1,29 @@
+target_pred_scatters:
+  _target_: mldft.ml.callbacks.image_logging.LogTargetPredScatters
+  with_atom_ref: "auto"
+  train_timing:
+    _target_: mldft.ml.callbacks.timing.EveryIncreasingInterval
+    initial_interval: ${callbacks.interval}
+  val_timing:
+    _target_: mldft.ml.callbacks.timing.EveryIncreasingInterval
+    initial_interval: ${callbacks.interval}
+
+gradient_scatter:
+  _target_: mldft.ml.callbacks.image_logging.LogGradientScatter
+  train_timing:
+    _target_: mldft.ml.callbacks.timing.EveryIncreasingInterval
+    initial_interval: ${callbacks.interval}
+  val_timing:
+    _target_: mldft.ml.callbacks.timing.EveryIncreasingInterval
+    initial_interval: ${callbacks.interval}
+
+distance_embeddings:
+  _target_: mldft.ml.callbacks.image_logging.LogDistanceEmbeddings
+  max_distance: 8.0 # Bohr
+  n_distances: 1000
+  train_timing:
+    _target_: mldft.ml.callbacks.timing.EveryIncreasingInterval
+    initial_interval: ${callbacks.interval}
+  val_timing:
+    _target_: mldft.ml.callbacks.timing.EveryIncreasingInterval
+    initial_interval: ${callbacks.interval}

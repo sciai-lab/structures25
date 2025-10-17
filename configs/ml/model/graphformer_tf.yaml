@@ -1,0 +1,111 @@
+defaults:
+  - default
+
+net:
+  _target_: mldft.ml.models.components.graphformer.Graphformer
+  edge_mlp:
+    _target_: mldft.ml.models.components.mlp.MLP
+    in_channels: 128
+    hidden_channels: [768, 32]
+    activation_layer:
+      _target_: hydra.utils.get_class
+      path: torch.nn.SiLU
+    dropout: 0.
+  energy_mlp:
+    _target_: mldft.ml.models.components.mlp.MLP
+    in_channels: 768
+    hidden_channels: [768, 1]
+    activation_layer:
+      _target_: hydra.utils.get_class
+      path: torch.nn.SiLU
+    dropout: 0.
+    disable_dropout_last_layer: True
+    disable_activation_last_layer: True
+    disable_norm_last_layer: True
+
+  # GBF Module
+  gbf_module:
+    _target_: mldft.ml.models.components.gbf_module.GaussianLayer
+    basis_info: ${data.basis_info}
+    num_gaussians: 128
+    init_radius_range: [0, 3]
+    directed: True
+    normalized: True
+
+  # Node embedding module
+  node_embedding_module:
+    _target_: mldft.ml.models.components.node_embedding.NodeEmbedding.from_basis_info
+    basis_info: ${data.basis_info}
+    out_channels: 768
+    dst_in_channels: 128
+    p_hidden_channels: 768
+    p_num_layers: 3
+    p_activation:
+      _target_: hydra.utils.get_class
+      path: torch.nn.GELU
+    p_dropout: 0.
+    dst_hidden_channels: 768
+    dst_num_layers: 3
+    dst_activation:
+      _target_: hydra.utils.get_class
+      path: torch.nn.GELU
+    dst_dropout: 0.
+    lambda_co: 10.0
+    lambda_mul: 0.02
+    use_per_basis_func_shrink_gate: True
+    cutoff: null
+
+  # GNN Module
+  gnn_module:
+    _target_: mldft.ml.models.components.g3d_stack.G3DStack
+    g3d_class:
+      _partial_: true
+      _target_: mldft.ml.models.components.g3d_layer_tf.G3DLayerTF
+    in_reps:
+      _target_: tensorframes.reps.Irreps
+      # irreps: "256x0+64x1+64x2"
+      irreps: "513x0+85x1"
+      # irreps: "768x0"
+    n_layers: 4
+    heads: 32
+    edge_dim: 1
+    dropout: 0.
+    attention_weight_dropout: 0.
+    mlp_hidden_dim: null # will use in_channels if None
+    mlp_activation:
+      _target_: hydra.utils.get_class
+      path: torch.nn.GELU
+    norm_layer_class:
+      _target_: torch_geometric.nn.norm.layer_norm.LayerNorm
+      _partial_: true
+      mode: "node"
+    activation_dropout: 0.
+    cutoff: null
+
+  # Atom Ref Module
+  atom_ref_module:
+    _target_: mldft.ml.models.components.atom_ref.AtomRef.from_dataset_statistics
+    dataset_statistics: ${data.dataset_statistics}
+    weigher_key: "has_energy_label"
+
+  # Initial Guess Module
+  initial_guess_module:
+    _target_: mldft.ml.models.components.initial_guess_delta_module.InitialGuessDeltaModule
+    input_size: 768
+    basis_info: ${data.basis_info}
+    dataset_statistics: ${data.dataset_statistics}
+    weigher_key: "initial_guess_only"
+    activation_function:
+      _target_: hydra.utils.get_class
+      path: torch.nn.GELU
+    hidden_layers: [768]
+    dropout: 0.
+
+  # Dimension-wise rescaling module
+  dimension_wise_rescaling_module:
+    _target_: mldft.ml.models.components.dimension_wise_rescaling.DimensionWiseRescaling.from_dataset_statistics
+    dataset_statistics: ${data.dataset_statistics}
+    weigher_key: "has_energy_label"
+    s_coeff: 50
+    s_grad: 0.05
+    epsilon: 1e-8

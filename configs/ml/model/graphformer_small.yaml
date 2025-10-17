@@ -1,0 +1,22 @@
+defaults:
+  - graphformer
+
+net:
+  edge_mlp:
+    in_channels: 64
+    hidden_channels: [64, 64, 4]
+  energy_mlp:
+    in_channels: 64
+    hidden_channels: [64, 64, 1]
+  gbf_module:
+    num_gaussians: 64
+  node_embedding_module:
+    out_channels: 64
+    dst_in_channels: 64
+    p_hidden_channels: 64
+    dst_hidden_channels: 64
+  gnn_module:
+    n_layers: 6
+    heads: 4
+  initial_guess_module:
+    hidden_layers: [64]
