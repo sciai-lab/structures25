@@ -15,45 +15,6 @@
 
 This repository contains the code used in our publication [Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning](https://pubs.acs.org/doi/10.1021/jacs.5c06219). Using equivariant graph neural networks we enable Orbital-Free Density Functional Theory calculations by learning the kinetic energy functional from data.
 
-#### Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
-<!-- prettier-ignore-start -->
-
-<!-- markdownlint-disable -->
-
-<div align="center">
-<table border="0" style="border: none; border-collapse: collapse;">
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/imagirom"><img src="https://github.com/imagirom.png?size=60" width="60px;" alt="Roman Remme"/><br /><sub><b>Roman Remme</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ToKa96"><img src="https://github.com/ToKa96.png?size=60" width="60px;" alt="Tobias Kaczun"/><br /><sub><b>Tobias Kaczun</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/TimLEbert"><img src="https://github.com/TimLEbert.png?size=60" width="60px;" alt="Tim Ebert"/><br /><sub><b>Tim Ebert</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/christofgehrig"><img src="https://github.com/christofgehrig.png?size=60" width="60px;" alt="Christof A. Gehrig"/><br /><sub><b>Christof A. Gehrig</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Splendus"><img src="https://github.com/Splendus.png?size=60" width="60px;" alt="Dominik Geng"/><br /><sub><b>Dominik Geng</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gerhagj"><img src="https://github.com/gerhagj.png?size=60" width="60px;" alt="Gerrit Gerhartz"/><br /><sub><b>Gerrit Gerhartz</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/marcickler"><img src="https://github.com/marcickler.png?size=60" width="60px;" alt="Marc K. Ickler"/><br /><sub><b>Marc K. Ickler</b></sub></a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ManuelHei"><img src="https://github.com/ManuelHei.png?size=60" width="60px;" alt="Manuel V. Klockow"/><br /><sub><b>Manuel V. Klockow</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/PeteLipp"><img src="https://github.com/PeteLipp.png?size=60" width="60px;" alt="Peter Lippmann"/><br /><sub><b>Peter Lippmann</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JSSchmidt"><img src="https://github.com/JSSchmidt.png?size=60" width="60px;" alt="Johannes S. Schmidt"/><br /><sub><b>Johannes S. Schmidt</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/SimonWagnerHD"><img src="https://github.com/SimonWagnerHD.png?size=60" width="60px;" alt="Simon Wagner"/><br /><sub><b>Simon Wagner</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/FredHamprecht"><img src="https://github.com/FredHamprecht.png?size=60" width="60px;" alt="Fred A. Hamprecht"/><br /><sub><b>Fred A. Hamprecht</b></sub></a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/adreuw"><img src="https://github.com/adreuw.png?size=60" width="60px;" alt="Fred A. Hamprecht"/><br /><sub><b>Andreas Dreuw</b></sub></a></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-<!-- markdownlint-restore -->
-
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
 ## Installation
 
 ### UV (recommended)
