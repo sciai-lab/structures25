@@ -17,6 +17,7 @@ Welcome to the documentation of STRUCTURES25!
    :template: module_template.rst
    :recursive:
 
+   mldft.api
    mldft.datagen
    mldft.ml
    mldft.ofdft
