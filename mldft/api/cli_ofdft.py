@@ -40,11 +40,6 @@ Please cite our work if you use MLDFT in your research
 https://doi.org/10.1021/jacs.5c06219
 """
 
-DEFAULT_DATASET_STATISTICS_PATH = (
-    Path(os.environ["DFT_STATISTICS"])
-    / "sciai-test-mol/dataset_statistics/dataset_statistics_labels_no_basis_transforms_e_kin_plus_xc.zarr/"
-)
-
 OFDFT_KWARGS = [
     "normalize_initial_guess",
     "ks_basis",
@@ -82,7 +77,7 @@ def console_filter(record: dict) -> bool:
 
 
 def extract_group(prefix: str, args: argparse.Namespace, cls: type | None = None):
-    """Extract args starting with prefix_ and optionally instantiate ``cls``."""
+    r"""Extract args starting with "prefix\_" and optionally instantiate ``cls``."""
 
     group_dict = {
         key.removeprefix(prefix + "_"): val
@@ -471,4 +466,9 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    DEFAULT_DATASET_STATISTICS_PATH = (
+        Path(os.environ["DFT_STATISTICS"])
+        / "sciai-test-mol/dataset_statistics/dataset_statistics_labels_no_basis_transforms_e_kin_plus_xc.zarr/"
+    )
+
     main()
