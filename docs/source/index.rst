@@ -11,7 +11,6 @@ Welcome to the documentation of STRUCTURES25!
    :maxdepth: 1
    :caption: Package Reference
 
-   about.rst
 
 .. autosummary::
    :toctree: reference
