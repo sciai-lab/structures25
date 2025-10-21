@@ -18,6 +18,7 @@ scikit-learn
 torchmetrics==0.*
 geometric
 zarr==2.18.4
+numcodecs==0.15
 pyscf==2.4.0
 notebook
 hydra-core==1.*
@@ -46,3 +47,4 @@ pypdf
 gitpython
 seaborn
 lmdb
+git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d

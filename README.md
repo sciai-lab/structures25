@@ -38,7 +38,7 @@ want to train your own model please clone the github project.
 # install prerequisites
 pip install torch-scatter torch-sparse torch-cluster --find-links https://data.pyg.org/whl/torch-2.4.1+cu124.html
 # Install tensorframes
-pip install git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d#
+pip install git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d
 # install mldft
 pip install mldft
 ```
@@ -46,7 +46,7 @@ pip install mldft
 Alternatively with `uv` in one go:
 
 ```bash
-uv pip install mldft torch-scatter torch-sparse torch-cluster --find-links https://data.pyg.org/whl/torch-2.4.1+cu124.html git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d#
+uv pip install mldft torch-scatter torch-sparse torch-cluster --find-links https://data.pyg.org/whl/torch-2.4.1+cu124.html git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d
 ```
 
 #### Install using Conda/Mamba/Micromamba
@@ -59,14 +59,12 @@ If you want to create the environment with CPU support only, you can replace
 micromamba env create -f environment.yaml  # create mamba environment
 micromamba activate mldft                  # activate environment
 pip install -e .                           # install as an editable package
-pip install -e tensorframes                # install tensorframes
 ```
 
 #### Install using Pip
 
 ```bash
 pip install -r requirements.txt -e .       # install requirements and package
-pip install -e tensorframes                # install tensorframes
 ```
 
 #### Setup using script
