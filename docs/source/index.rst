@@ -1,10 +1,6 @@
-.. MLDFT documentation master file, created by
-   sphinx-quickstart on Mon Nov 13 17:40:45 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+STRUCTURES25 Documentation
+==========================
 
-Welcome to the documentation of STRUCTURES25!
-=============================================
 
 
 .. toctree::
@@ -44,8 +40,3 @@ References
 .. [Graphormer] Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di
     He, Yanming Shen, Tie-Yan Liu: "Do Transformers really perform badly for graph
     representation?". Advances in Neural Information Processing Systems, 34:28877–28888, 2021.
-
-..
-    ADIIS is no longer supported which is why it is commented out.
-    [ADIIS] Hu, Xiangqian, and Weitao Yang: "Accelerating self-consistent field convergence with
-    the augmented Roothaan–Hall energy function". The Journal of chemical physics 132.5 (2010).
