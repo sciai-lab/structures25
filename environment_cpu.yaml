@@ -71,3 +71,4 @@ dependencies:
       - torch_geometric==2.6.1
       - gitpython
       - huggingface_hub==0.*
+      - git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d

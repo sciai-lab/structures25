@@ -11,7 +11,7 @@
 
 </div>
 
-![figure1](https://github.com/user-attachments/assets/13367895-02cd-49a2-b5e3-c48c1dd1d37d)
+![figure1](https://github.com/user-attachments/assets/00abb696-95e3-4aaa-857b-2b7548d45646)
 
 This repository contains the code used in our publication [Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning](https://pubs.acs.org/doi/10.1021/jacs.5c06219). Using equivariant graph neural networks we enable Orbital-Free Density Functional Theory calculations by learning the kinetic energy functional from data.
 
@@ -40,7 +40,7 @@ want to train your own model please clone the github project.
 # install prerequisites
 pip install torch-scatter torch-sparse torch-cluster --find-links https://data.pyg.org/whl/torch-2.4.1+cu124.html
 # Install tensorframes
-pip install git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d#
+pip install git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d
 # install mldft
 pip install mldft
 ```
@@ -48,7 +48,7 @@ pip install mldft
 Alternatively with `uv` in one go:
 
 ```bash
-uv pip install mldft torch-scatter torch-sparse torch-cluster --find-links https://data.pyg.org/whl/torch-2.4.1+cu124.html git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d#
+uv pip install mldft torch-scatter torch-sparse torch-cluster --find-links https://data.pyg.org/whl/torch-2.4.1+cu124.html git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d
 ```
 
 #### Install using Conda/Mamba/Micromamba
@@ -61,14 +61,12 @@ If you want to create the environment with CPU support only, you can replace
 micromamba env create -f environment.yaml  # create mamba environment
 micromamba activate mldft                  # activate environment
 pip install -e .                           # install as an editable package
-pip install -e tensorframes                # install tensorframes
 ```
 
 #### Install using Pip
 
 ```bash
 pip install -r requirements.txt -e .       # install requirements and package
-pip install -e tensorframes                # install tensorframes
 ```
 
 #### Setup using script
@@ -211,9 +209,33 @@ For more details about the template visit: https://github.com/ashleve/lightning-
 This code adapts code from the following third party libraries:
 
 - [pytorch_geometric](https://github.com/pyg-team/pytorch_geometric)
-- [equiformer_v2](https://github.com/atomicarchitects/equiformer_v2)
+- [lightning-hydra-template](https://github.com/ashleve/lightning-hydra-template)
 
-These are distributed under the MIT license which can be found in the [license file](LICENSE).
+These are distributed under the
+
+<details>
+  <summary>MIT License</summary>
+  <p>
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+</p>
+</details>
 
 ## Citation
 
