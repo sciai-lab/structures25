@@ -9,6 +9,8 @@
 [![black](https://img.shields.io/badge/Code%20Style-Black-black.svg?labelColor=gray)](https://black.readthedocs.io/en/stable/)
 [![isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/) <br>
 
+</div>
+
 ![figure1](https://github.com/user-attachments/assets/00abb696-95e3-4aaa-857b-2b7548d45646)
 
 This repository contains the code used in our publication [Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning](https://pubs.acs.org/doi/10.1021/jacs.5c06219). Using equivariant graph neural networks we enable Orbital-Free Density Functional Theory calculations by learning the kinetic energy functional from data.
