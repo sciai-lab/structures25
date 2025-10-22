@@ -57,8 +57,8 @@ To cite STRUCTURES25 in your work, please use the following BibTeX entry:
    </div>
 
 
-Submodules
-==========
+Subpackages
+===========
 
 .. toctree::
    :maxdepth: 1
