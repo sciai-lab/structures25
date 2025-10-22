@@ -82,10 +82,10 @@ Submodules
 References
 ==========
 
-.. [M-OFDFT] Zhang, H.; Liu, S.; You, J.; Liu, C.; Zheng, S.; Lu, Z.; Wang, T.; Zheng, N.;
-    Shao, B. M-OFDFT: "Overcoming the Barrier of Orbital-Free Density Functional
-    Theory for Molecular Systems Using Deep Learning". arXiv September 28, 2023.
-    http://arxiv.org/abs/2309.16578.
+.. [M-OFDFT] Zhang, H.; Liu, S.; You, J.; Liu, C.; Zheng, S.; Lu, Z.; Wang, T.; Zheng, N.; Shao,
+    B.: "Overcoming the barrier of orbital-free density functional theory for molecular systems
+    using deep learning." Nat Comput Sci 4, 210–223 (2024).
+    https://doi.org/10.1038/s43588-024-00605-8
 
 .. [Graphormer] Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di
     He, Yanming Shen, Tie-Yan Liu: "Do Transformers really perform badly for graph
