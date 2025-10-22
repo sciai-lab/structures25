@@ -1,39 +1,17 @@
 STRUCTURES25 Documentation
 ==========================
 
+Welcome to the documentation for STRUCTURES25! This package enables Orbital-Free Density Functional Theory (OF-DFT) calculations by learning the kinetic energy functional from data using equivariant graph neural networks.
+For more information on the **installation** and **usage**, please refer to our `GitHub repository <https://github.com/sciai-lab/structures25>`_.
 
+.. raw:: html
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Package Reference
+   <div style="text-align: center; margin-bottom: 30px;">
+   <img src="https://github.com/user-attachments/assets/00abb696-95e3-4aaa-857b-2b7548d45646" alt="STRUCTURES25 Overview" style="max-width: 100%;">
+   </div>
 
-
-.. autosummary::
-   :toctree: reference
-   :template: module_template.rst
-   :recursive:
-
-   mldft.api
-   mldft.datagen
-   mldft.ml
-   mldft.ofdft
-   mldft.utils
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-This package started as the reimplementation of [M-OFDFT]_.
-
-
-Citation
-========
-
-If you use this repository in your research, please cite the following paper:
+The code is based on our publication `Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning <https://pubs.acs.org/doi/10.1021/jacs.5c06219>`_.
+To cite STRUCTURES25 in your work, please use the following BibTeX entry:
 
 .. raw:: html
 
@@ -42,7 +20,7 @@ If you use this repository in your research, please cite the following paper:
    <div id="copy-icon" style="display: block; transform: scaleX(-1); margin-top: -25px">⧉</div>
    <div id="copy-text" style="display: none;">Copied!</div>
    </button>
-   <pre id="citation-text" style="background: #f8f8f8; padding: 10px; border: 1px solid #ddd; border-radius: 5px; overflow-x: auto;">@article{Remme_Stable_and_Accurate_2025,
+   <pre id="citation-text" style="background: #f8f8f8; padding: 10px; border: 1px solid #ddd; border-radius: 5px; overflow-x: auto; font-size: 0.85em;">@article{Remme_Stable_and_Accurate_2025,
        author = {Remme, Roman and Kaczun, Tobias and Ebert, Tim and Gehrig, Christof A. and
                  Geng, Dominik and Gerhartz, Gerrit and Ickler, Marc K. and Klockow, Manuel V. and
                  Lippmann, Peter and Schmidt, Johannes S. and Wagner, Simon and Dreuw, Andreas and
@@ -79,6 +57,28 @@ If you use this repository in your research, please cite the following paper:
    </div>
 
 
+Submodules
+==========
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Package Reference
+
+
+.. autosummary::
+   :toctree: reference
+   :template: module_template.rst
+   :recursive:
+
+   mldft.api
+   mldft.datagen
+   mldft.ml
+   mldft.ofdft
+   mldft.utils
+
+
+
+
 References
 ==========
 
@@ -90,3 +90,11 @@ References
 .. [Graphormer] Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di
     He, Yanming Shen, Tie-Yan Liu: "Do Transformers really perform badly for graph
     representation?". Advances in Neural Information Processing Systems, 34:28877–28888, 2021.
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
