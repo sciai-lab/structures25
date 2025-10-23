@@ -30,8 +30,8 @@ authors:
     given-names: "Andreas"
   - family-names: "Hamprecht"
     given-names: "Fred A."
-repository-code: "https://github.com/sciai-lab/sciai-dft"
-url: "https://github.com/sciai-lab/sciai-dft"
+repository-code: "https://github.com/sciai-lab/structures25"
+url: "https://github.com/sciai-lab/structures25"
 license: "LGPL-3.0"
 keywords:
   - "density functional theory"
