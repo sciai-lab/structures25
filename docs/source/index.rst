@@ -17,8 +17,8 @@ To cite STRUCTURES25 in your work, please use the following BibTeX entry:
 
    <div style="position: relative;">
    <button id="copy-button" onclick="copyToClipboard()" title="Copy" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; cursor: pointer; background: #f0f0f0; border: 1px solid #ccc; border-radius: 3px;">
-   <div id="copy-icon" style="display: block; transform: scaleX(-1); margin-top: -25px">⧉</div>
-   <div id="copy-text" style="display: none;">Copied!</div>
+   <div id="copy-icon" style="display: block;">⎘</div>
+   <div id="copy-text" style="display: none;">🗸 copied</div>
    </button>
    <pre id="citation-text" style="background: #f8f8f8; padding: 10px; border: 1px solid #ddd; border-radius: 5px; overflow-x: auto; font-size: 0.85em;">@article{Remme_Stable_and_Accurate_2025,
        author = {Remme, Roman and Kaczun, Tobias and Ebert, Tim and Gehrig, Christof A. and
