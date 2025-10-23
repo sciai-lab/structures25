@@ -147,9 +147,12 @@ def save_sample(sample: OFData, energies: Energies, samplefile: Path) -> None:
 
 def add_sad_kwargs(ofdft_kwargs: dict, basis_info: BasisInfo) -> None:
     """Inject SAD initialization options into the OFDFT configuration."""
-
+    dataset_statistics_path = (
+        Path(os.environ["DFT_STATISTICS"])
+        / "sciai-test-mol/dataset_statistics/dataset_statistics_labels_no_basis_transforms_e_kin_plus_xc.zarr/"
+    )
     sad_guess_kwargs = dict(
-        dataset_statistics=DatasetStatistics(DEFAULT_DATASET_STATISTICS_PATH),
+        dataset_statistics=DatasetStatistics(dataset_statistics_path),
         normalization_mode=SADNormalizationMode.PER_ATOM_WEIGHTED,
         basis_info=basis_info,
         weigher_key="ground_state_only",
@@ -466,9 +469,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    DEFAULT_DATASET_STATISTICS_PATH = (
-        Path(os.environ["DFT_STATISTICS"])
-        / "sciai-test-mol/dataset_statistics/dataset_statistics_labels_no_basis_transforms_e_kin_plus_xc.zarr/"
-    )
-
     main()
