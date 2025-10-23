@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  DFT_DATA: ${{ github.workspace }}/data
+  DFT_MODELS: ${{ github.workspace }}/models
+
 permissions:
   contents: read
   pages: write
