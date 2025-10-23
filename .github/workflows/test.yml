@@ -29,20 +29,18 @@ jobs:
 
       - name: Set up uv
         id: setup-uv
-        uses: astral-sh/setup-uv@v6
+        uses: astral-sh/setup-uv@v7
         with:
           version: "0.9.0"
           python-version: ${{ matrix.python-version }}
-          enable-cache: true
+          enable-cache: auto
+          prune-cache: false
           cache-dependency-glob: |
             pyproject.toml
             uv.lock
 
       - name: Sync project dependencies
         run: uv sync --group pyg-cpu --no-group pyg
-
-      - name: Install sh helper
-        run: uv pip install sh
 
       - name: List dependencies
         run: uv pip list
