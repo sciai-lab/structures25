@@ -20,40 +20,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v5
 
-      - name: Check space before micromamba
-        run: |
-          df -h
-        shell: bash -el {0}
-
-      - name: Setup Micromamba
-        uses: mamba-org/setup-micromamba@v1.9.0
+      - name: Set up uv
+        id: setup-uv
+        uses: astral-sh/setup-uv@v6
         with:
-          environment-file: environment_cpu.yaml
-          init-shell: bash
-          cache-environment: true
+          version: "0.9.0"
+          python-version: 3.12
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
 
-      - name: Check space after micromamba
-        run: |
-          df -h
-          du -h -d 1 $(dirname $(dirname $(dirname $(which python))))
-        shell: bash -el {0}
+      - name: Sync project dependencies
+        run: uv sync --group pyg-cpu --no-group pyg
 
       - name: List dependencies
-        run: |
-          python -m pip list
-        shell: bash -el {0}
-
-      - name: Install package
-        run: |
-          pip install -e .
-        shell: bash -el {0}
+        run: uv pip list
 
       - name: Build documentation
-        run: make docs
-        shell: bash -el {0}
+        run: uv run -- make docs
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
