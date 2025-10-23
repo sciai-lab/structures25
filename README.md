@@ -13,7 +13,7 @@
 
 ![figure1](https://github.com/user-attachments/assets/00abb696-95e3-4aaa-857b-2b7548d45646)
 
-This repository contains the code used in our publication [Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning](https://pubs.acs.org/doi/10.1021/jacs.5c06219). Using equivariant graph neural networks we enable Orbital-Free Density Functional Theory calculations by learning the kinetic energy functional from data.
+This repository contains the code used in our publication [Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning](https://pubs.acs.org/doi/10.1021/jacs.5c06219). Using equivariant graph neural networks, we enable Orbital-Free Density Functional Theory calculations by learning the kinetic energy functional from data.
 
 ## Installation
 
@@ -79,19 +79,18 @@ with
 mldft_setup
 ```
 
-It will ask you where to place the datasets and ml models, defaults are
-`$HOME/dft_data$` and `$HOME/dft_models` and also export them as the respective environment variables `DFT_DATA` and `DFT_MODELS`. Then it will offer you
-to download our two models from [our repo on hugging
-face](https://huggingface.co/sciai-lab/structures25/tree/main) (note that you
-require the hugging face python package that you can install with `pip install huggingface_hub`).
-It will furthermore offer you to download some dataset statistics which will be required if you want to use the `SAD` guess during density optimization with the `cli`.
+It will ask you where to place the datasets and ML models. The defaults are
+`$HOME/dft_data` and `$HOME/dft_models`, and it will also export them as the respective environment variables `DFT_DATA` and `DFT_MODELS`. Then, it will offer you
+to download our two models from [our repo on Hugging Face](https://huggingface.co/sciai-lab/structures25/tree/main) (note that you
+require the Hugging Face Python package, which you can install with `pip install huggingface_hub`).
+It will furthermore offer you to download some dataset statistics, which will be required if you want to use the `SAD` guess during density optimization with the `cli`.
 
 ##### Environment variables
 
-Before running the code you need to set the two following environment variables `DFT_DATA`, the path
-where the data should be stored and `DFT_MODELS` which is the path where the training runs
-including model checkpoints, logs and tensorboard files should be stored. You can set them in your
-`.bashrc` or `.zshrc`
+Before running the code, you need to set the following two environment variables: `DFT_DATA`, the path
+where the data should be stored, and `DFT_MODELS`, which is the path where the training runs,
+including model checkpoints, logs, and TensorBoard files, should be stored. You can set them in your
+`.bashrc` or `.zshrc`:
 
 ```bash
 export DFT_DATA="/path/to/data"
@@ -106,7 +105,7 @@ We use [hydra](https://hydra.cc/docs/intro/) to manage configurations. The main 
 
 #### Data generation
 
-Our datasets used are available at [dryad](https://datadryad.org/dataset/doi:10.5061/dryad.0cfxpnwcs).
+Our datasets are available at [Dryad](https://datadryad.org/dataset/doi:10.5061/dryad.0cfxpnwcs).
 
 1. (Optional) Create your own dataset class or use the MISC dataset and provide xyz files to set which molecules should be generated.
 
@@ -120,13 +119,13 @@ Our datasets used are available at [dryad](https://datadryad.org/dataset/doi:10.
 
    Example: `mldft_labelgen dataset=<your_dataset_config_name> n_molecules=-1`
 
-5. Split the file into train, validation and test dataset using`mldft/utils/create_dataset_splits.py`.
+5. Split the file into train, validation, and test datasets using `mldft/utils/create_dataset_splits.py`.
 
    Example: `python mldft/utils/create_dataset_splits.py <dataset_name>`
 
 6. Create a train data config in `configs/ml/data` to link to the dataset, important are dataset_name and the right setting of atom types in the dataset.
 
-7. Transform into a basis (to reduce dataloading computations during training), for `Graphformer` models use `local_frames_global_natrep`.
+7. Transform into a basis (to reduce data loading computations during training). For `Graphformer` models, use `local_frames_global_natrep`.
 
    Example: `python mldft/datagen/transform_dataset.py data=<your_train_data_config_name> data/transforms=local_frames_global_natrep`
 
@@ -144,10 +143,10 @@ Training can be run with:
 python mldft/ml/train.py data=<train_data_config> model=<model_config>
 ```
 
-Two important settings are
+Two important settings are:
 
-- `data/transforms`: This determines whether the data has been pre-transformed. The default is `local_frames_global_natrep` which means that both *local frames* and *global natural reparametrization* has been applied.
-- `data.target_key`: The target you are training. The default is `kin_plus_xc` which means you train on the total kinetic energy and exchange-correlation energy and their gradient. Alternatives are `kin_minus_apbe` which is a delta learning approach to the kinetic energy obtained from the APBE kinetic energy functional and `tot` which means you are training on the total electronic energy.
+- `data/transforms`: This determines whether the data has been pre-transformed. The default is `local_frames_global_natrep`, which means that both *local frames* and *global natural reparametrization* have been applied.
+- `data.target_key`: The target you are training on. The default is `kin_plus_xc`, which means you train on the total kinetic energy and exchange-correlation energy and their gradient. Alternatives are `kin_minus_apbe`, which is a delta learning approach to the kinetic energy obtained from the APBE kinetic energy functional, and `tot`, which means you are training on the total electronic energy.
 
 #### Density Optimization
 
@@ -160,17 +159,17 @@ python mldft/ofdft/run_density_optimization run_path=<path_to_ml_model> \
     n_molecules=<number_of_molecules> device=<device> initialization=<initialization> num_devices=<num_devices>
 ```
 
-- `path_to_model` is the path of to the model relative to `DFT_MODELS`
-- `n_molecules` the number of molecules which should be computed
-- `device` the device on which the computation should run, e.g. `cuda`, `cpu`, ...
-- `initialization` the initialization to use either `sad`, `minao` or `hückel`, the `sad` initialization requires appropriate dataset statistics.
+- `path_to_model`: The path to the model relative to `DFT_MODELS`.
+- `n_molecules`: The number of molecules to compute.
+- `device`: The device on which the computation should run, e.g., `cuda`, `cpu`, etc.
+- `initialization`: The initialization to use, either `sad`, `minao`, or `hückel`. The `sad` initialization requires appropriate dataset statistics.
 
 By default this will run on the validation set of the dataset the model was trained on, but you can overwrite `split_file_path` to use another split file and `split` to toggle between `train`, `val` and `test` splits of the dataset.
 Results are plotted in the files `density_optimization.pdf` and `density_optimization_summary.pdf`.
 
 ###### On arbitrary molecules
 
-If you want to run the density optimization on molecules in `.xyz` files which are not part of any dataset you
+If you want to run the density optimization on molecules in `.xyz` files that are not part of any dataset, you
 can do so with:
 
 ```bash
@@ -184,13 +183,13 @@ This will only work if the model has been trained for all atom types present in 
 Additionally, if you have the required dataset statistics you can use the `sad` initialization, by default `minao`.
 The result will be saved in a file with `.pt` ending with the same base name as your `.xyz` file.
 
-Alternatively if you downloaded our models using our setup script you can also give our models by name:
+Alternatively, if you downloaded our models using our setup script, you can also specify our models by name:
 
 ```bash
 mldft xyzfile --model  str25_qm9 # or str25_qmugs
 ```
 
-## Additional Info
+## Additional information
 
 #### Build documentation
 
@@ -202,7 +201,7 @@ make docs-clean
 
 #### Template
 
-For more details about the template visit: https://github.com/ashleve/lightning-hydra-template
+For more details about the template, visit: https://github.com/ashleve/lightning-hydra-template
 
 ## Third-party licenses
 
@@ -239,18 +238,18 @@ SOFTWARE.
 
 ## Citation
 
-If you use this repository in your research please cite following paper:
+If you use this repository in your research, please cite the following paper:
 
 ```
 @article{Remme_Stable_and_Accurate_2025,
-author = {Remme, Roman and Kaczun, Tobias and Ebert, Tim and Gehrig, Christof A. and Geng, Dominik and Gerhartz, Gerrit and Ickler, Marc K. and Klockow, Manuel V. and Lippmann, Peter and Schmidt, Johannes S. and Wagner, Simon and Dreuw, Andreas and Hamprecht, Fred A.},
-doi = {10.1021/jacs.5c06219},
-journal = {Journal of the American Chemical Society},
-number = {32},
-pages = {28851--28859},
-title = {{Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning}},
-url = {https://doi.org/10.1021/jacs.5c06219},
-volume = {147},
-year = {2025}
+    author = {Remme, Roman and Kaczun, Tobias and Ebert, Tim and Gehrig, Christof A. and Geng, Dominik and Gerhartz, Gerrit and Ickler, Marc K. and Klockow, Manuel V. and Lippmann, Peter and Schmidt, Johannes S. and Wagner, Simon and Dreuw, Andreas and Hamprecht, Fred A.},
+    doi = {10.1021/jacs.5c06219},
+    journal = {Journal of the American Chemical Society},
+    number = {32},
+    pages = {28851--28859},
+    title = {{Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning}},
+    url = {https://doi.org/10.1021/jacs.5c06219},
+    volume = {147},
+    year = {2025}
 }
 ```

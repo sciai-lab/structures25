@@ -1,27 +1,95 @@
-.. MLDFT documentation master file, created by
-   sphinx-quickstart on Mon Nov 13 17:40:45 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+STRUCTURES25 Documentation
+==========================
 
-Welcome to the documentation of STRUCTURES25!
-=============================================
+Welcome to the documentation for STRUCTURES25! This package enables Orbital-Free Density Functional Theory (OF-DFT) calculations by learning the kinetic energy functional from data using equivariant graph neural networks.
+For more information on the **installation** and **usage**, please refer to our `GitHub repository <https://github.com/sciai-lab/structures25>`_.
 
+.. raw:: html
+
+   <div style="text-align: center; margin-bottom: 30px;">
+   <img src="https://github.com/user-attachments/assets/00abb696-95e3-4aaa-857b-2b7548d45646" alt="STRUCTURES25 Overview" style="max-width: 100%;">
+   </div>
+
+The code is based on our publication `Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning <https://pubs.acs.org/doi/10.1021/jacs.5c06219>`_.
+To cite STRUCTURES25 in your work, please use the following BibTeX entry:
+
+.. raw:: html
+
+   <div style="position: relative;">
+   <button id="copy-button" onclick="copyToClipboard()" title="Copy" style="position: absolute; right: 10px; top: 10px; padding: 5px 10px; cursor: pointer; background: #f0f0f0; border: 1px solid #ccc; border-radius: 3px;">
+   <div id="copy-icon" style="display: block;">⎘</div>
+   <div id="copy-text" style="display: none;">🗸 copied</div>
+   </button>
+   <pre id="citation-text" style="background: #f8f8f8; padding: 10px; border: 1px solid #ddd; border-radius: 5px; overflow-x: auto; font-size: 0.85em;">@article{Remme_Stable_and_Accurate_2025,
+       author = {Remme, Roman and Kaczun, Tobias and Ebert, Tim and Gehrig, Christof A. and
+                 Geng, Dominik and Gerhartz, Gerrit and Ickler, Marc K. and Klockow, Manuel V. and
+                 Lippmann, Peter and Schmidt, Johannes S. and Wagner, Simon and Dreuw, Andreas and
+                 Hamprecht, Fred A.},
+       title = {Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning},
+       journal = {Journal of the American Chemical Society},
+       year = {2025},
+       volume = {147},
+       number = {32},
+       pages = {28851--28859},
+       doi = {10.1021/jacs.5c06219},
+       url = {https://doi.org/10.1021/jacs.5c06219}
+   }</pre>
+   <script>
+   function copyToClipboard() {
+       const text = document.getElementById('citation-text').textContent;
+       const button = document.getElementById('copy-button');
+       const icon = document.getElementById('copy-icon');
+       const copyText = document.getElementById('copy-text');
+       navigator.clipboard.writeText(text).then(function() {
+           icon.style.display = 'none';
+           copyText.style.display = 'block';
+           button.style.background = '#d4edda';
+           setTimeout(function() {
+               icon.style.display = 'block';
+               copyText.style.display = 'none';
+               button.style.background = '#f0f0f0';
+           }, 2000);
+       }, function(err) {
+           alert('Could not copy text: ', err);
+       });
+   }
+   </script>
+   </div>
+
+
+Subpackages
+===========
 
 .. toctree::
    :maxdepth: 1
    :caption: Package Reference
 
-   about.rst
 
 .. autosummary::
    :toctree: reference
    :template: module_template.rst
    :recursive:
 
+   mldft.api
    mldft.datagen
    mldft.ml
    mldft.ofdft
    mldft.utils
+
+
+
+
+References
+==========
+
+.. [M-OFDFT] Zhang, H.; Liu, S.; You, J.; Liu, C.; Zheng, S.; Lu, Z.; Wang, T.; Zheng, N.; Shao,
+    B.: "Overcoming the barrier of orbital-free density functional theory for molecular systems
+    using deep learning." Nat Comput Sci 4, 210–223 (2024).
+    https://doi.org/10.1038/s43588-024-00605-8
+
+.. [Graphormer] Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di
+    He, Yanming Shen, Tie-Yan Liu: "Do Transformers really perform badly for graph
+    representation?". Advances in Neural Information Processing Systems, 34:28877–28888, 2021.
 
 
 Indices and tables
@@ -30,22 +98,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-This package started as the reimplementation of [M-OFDFT]_.
-
-References
-==========
-
-.. [M-OFDFT] Zhang, H.; Liu, S.; You, J.; Liu, C.; Zheng, S.; Lu, Z.; Wang, T.; Zheng, N.;
-    Shao, B. M-OFDFT: "Overcoming the Barrier of Orbital-Free Density Functional
-    Theory for Molecular Systems Using Deep Learning". arXiv September 28, 2023.
-    http://arxiv.org/abs/2309.16578.
-
-.. [Graphormer] Chengxuan Ying, Tianle Cai, Shengjie Luo, Shuxin Zheng, Guolin Ke, Di
-    He, Yanming Shen, Tie-Yan Liu: "Do Transformers really perform badly for graph
-    representation?". Advances in Neural Information Processing Systems, 34:28877–28888, 2021.
-
-..
-    ADIIS is no longer supported which is why it is commented out.
-    [ADIIS] Hu, Xiangqian, and Weitao Yang: "Accelerating self-consistent field convergence with
-    the augmented Roothaan–Hall energy function". The Journal of chemical physics 132.5 (2010).

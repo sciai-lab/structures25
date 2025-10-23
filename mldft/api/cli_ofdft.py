@@ -40,11 +40,6 @@ Please cite our work if you use MLDFT in your research
 https://doi.org/10.1021/jacs.5c06219
 """
 
-DEFAULT_DATASET_STATISTICS_PATH = (
-    Path(os.environ["DFT_STATISTICS"])
-    / "sciai-test-mol/dataset_statistics/dataset_statistics_labels_no_basis_transforms_e_kin_plus_xc.zarr/"
-)
-
 OFDFT_KWARGS = [
     "normalize_initial_guess",
     "ks_basis",
@@ -82,7 +77,7 @@ def console_filter(record: dict) -> bool:
 
 
 def extract_group(prefix: str, args: argparse.Namespace, cls: type | None = None):
-    """Extract args starting with prefix_ and optionally instantiate ``cls``."""
+    r"""Extract args starting with "prefix\_" and optionally instantiate ``cls``."""
 
     group_dict = {
         key.removeprefix(prefix + "_"): val
@@ -152,9 +147,12 @@ def save_sample(sample: OFData, energies: Energies, samplefile: Path) -> None:
 
 def add_sad_kwargs(ofdft_kwargs: dict, basis_info: BasisInfo) -> None:
     """Inject SAD initialization options into the OFDFT configuration."""
-
+    dataset_statistics_path = (
+        Path(os.environ["DFT_STATISTICS"])
+        / "sciai-test-mol/dataset_statistics/dataset_statistics_labels_no_basis_transforms_e_kin_plus_xc.zarr/"
+    )
     sad_guess_kwargs = dict(
-        dataset_statistics=DatasetStatistics(DEFAULT_DATASET_STATISTICS_PATH),
+        dataset_statistics=DatasetStatistics(dataset_statistics_path),
         normalization_mode=SADNormalizationMode.PER_ATOM_WEIGHTED,
         basis_info=basis_info,
         weigher_key="ground_state_only",
