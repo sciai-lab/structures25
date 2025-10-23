@@ -46,4 +46,4 @@ jobs:
         run: uv pip list
 
       - name: Run pytest
-        run: uv run --frozen pytest -m "not slow" -v
+        run: uv run pytest -m "not slow" -v
