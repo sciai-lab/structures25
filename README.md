@@ -49,12 +49,12 @@ cd structures25
 uv sync
 ```
 
-For installation instructions without uv or cpu support visit the installation page in the docs.
+For installation instructions without uv or cpu support visit the [Installation Guide](https://sciai-lab.github.io/structures25/installation.html). If you have built the docs locally, open `docs/build/html/installation.html`.
 Now you can either go to the replication guide [REPLICATION_GUIDE.md](REPLICATION_GUIDE.md) to reproduce results from our paper or see the usage below.
 
 ## Usage
 
-The full usage manual now lives in our documentation. Visit the [Usage Guide](docs/source/usage.rst) for detailed instructions on data generation, training, and density optimisation workflows. To reproduce the results from our paper, continue to use [REPLICATION_GUIDE.md](REPLICATION_GUIDE.md).
+The full usage manual now lives in our documentation. Visit the [Usage Guide](https://sciai-lab.github.io/structures25/usage.html) for detailed instructions on data generation, training, and density optimisation workflows. To reproduce the results from our paper, continue to use [REPLICATION_GUIDE.md](REPLICATION_GUIDE.md). After building the docs locally, you can open `docs/build/html/usage.html`.
 
 ## Additional information
 
