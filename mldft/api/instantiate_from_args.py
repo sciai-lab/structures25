@@ -1,3 +1,9 @@
+"""Factories that translate CLI-style arguments into MLDFT runtime components.
+
+The helpers in this module encapsulate how user-supplied configuration is converted into concrete
+model checkpoints, optimizers, and input molecule lists.
+"""
+
 import os
 from dataclasses import dataclass
 from pathlib import Path

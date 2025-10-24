@@ -255,6 +255,7 @@ class VectorAdam(Optimizer):
         for cycle in (
             pbar := tqdm(
                 range(self.max_cycle),
+                leave=False,
                 dynamic_ncols=True,
                 position=int(os.getenv("DENOP_PID", 0)),
                 disable=disable_pbar,
