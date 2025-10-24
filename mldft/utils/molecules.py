@@ -17,6 +17,8 @@ from pyscf.df import aug_etb
 from pyscf.lib.chkfile import load
 from rdkit import Chem
 
+from mldft.utils.conversions import pyscf_to_rdkit
+
 # To avoid circular imports and make flake8 happy
 if TYPE_CHECKING:
     from mldft.ml.data.components.of_data import OFData
@@ -513,6 +515,17 @@ def geometry_to_string(mol: gto.Mole, unit: str = "Angstrom"):
         f"{mol.atom_symbol(i)} {mol.atom_coord(i, unit=unit)[0]:.8f} {mol.atom_coord(i, unit=unit)[1]:.8f} {mol.atom_coord(i, unit=unit)[2]:.8f}"
         for i in range(mol.natm)
     )
+
+
+def get_mol_view_link(mol: gto.Mole) -> str:
+    """Get the MolView link for a molecule."""
+    try:
+        chem_mol = pyscf_to_rdkit(mol)
+    except Chem.rdchem.AtomValenceException:
+        return "Can't compute smiles, rdkit failed to convert the molecule."
+    smiles = Chem.MolToSmiles(chem_mol)
+    smiles = Chem.MolToSmiles(Chem.MolFromSmiles(smiles))  # simplify the smiles string
+    return f"https://molview.org/?smiles={smiles}"
 
 
 def check_atom_types(mol: gto.Mole, atom_types: np.ndarray) -> None:
