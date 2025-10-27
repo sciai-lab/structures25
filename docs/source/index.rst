@@ -4,11 +4,13 @@ STRUCTURES25 Documentation
 Welcome to the documentation for STRUCTURES25! This package enables Orbital-Free Density Functional Theory (OF-DFT) calculations by learning the kinetic energy functional from data using equivariant graph neural networks.
 For installation instructions, see the :doc:`Installation Guide <installation>`. To get familiar with the workflow, head to the :doc:`Usage Guide <usage>`.
 
+.. image:: https://github.com/user-attachments/assets/00abb696-95e3-4aaa-857b-2b7548d45646
+   :alt: STRUCTURES25 Overview
+   :align: center
+
 .. raw:: html
 
-   <div style="text-align: center; margin-bottom: 30px;">
-   <img src="https://github.com/user-attachments/assets/00abb696-95e3-4aaa-857b-2b7548d45646" alt="STRUCTURES25 Overview" style="max-width: 100%;">
-   </div>
+   <div style="height:40px"></div>
 
 The code is based on our publication `Stable and Accurate Orbital-Free Density Functional Theory Powered by Machine Learning <https://pubs.acs.org/doi/10.1021/jacs.5c06219>`_.
 To cite STRUCTURES25 in your work, please use the following BibTeX entry:
