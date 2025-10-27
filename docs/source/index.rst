@@ -67,28 +67,7 @@ Guides
 
    installation
    usage
-
-
-Subpackages
-===========
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Package Reference
-
-
-.. autosummary::
-   :toctree: reference
-   :template: module_template.rst
-   :recursive:
-
-   mldft.api
-   mldft.datagen
-   mldft.ml
-   mldft.ofdft
-   mldft.utils
-
-
+   package_reference
 
 
 References
