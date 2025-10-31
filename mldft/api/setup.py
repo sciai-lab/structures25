@@ -1,3 +1,5 @@
+"""Interactive setup utilities for obtaining MLDFT models and support files."""
+
 import os
 import sys
 from pathlib import Path
@@ -16,7 +18,6 @@ HUGGINGFACE_MODELS = {
 
 DEFAULT_DATA_DIR = Path(os.getenv("DFT_DATA", Path.home() / "dft_data"))
 DEFAULT_MODELS_DIR = Path(os.getenv("DFT_MODELS", Path.home() / "dft_models"))
-DEFAULT_STATISTICS_DIR = DEFAULT_MODELS_DIR / "dataset_statistics"
 
 
 def query_yes_no(question, default="yes"):
@@ -95,7 +96,7 @@ def download_dataset_statistics(repo_id: str, target_dir: Path):
             ],
             local_dir=target_dir,
         )
-        print(f"✅ Dataset statistics downloaded to {target_dir}")
+        print(f"✅ Dataset statistics downloaded to {target_dir / 'sciai-test-mol'}")
     except Exception as e:
         print(f"❌ Failed to download dataset statistics: {e}")
 
@@ -127,21 +128,18 @@ def main():
 
     data_dir = ask_path("Enter data directory path", DEFAULT_DATA_DIR)
     models_dir = ask_path("Enter models directory path", DEFAULT_MODELS_DIR)
-    statistics_dir = ask_path("Enter models directory path", DEFAULT_STATISTICS_DIR)
 
     print("\n📋 Using the following paths for setup:")
     print(f"  - DFT_DATA       = {data_dir}")
     print(f"  - DFT_MODELS     = {models_dir}")
-    print(f"  - DFT_STATISTICS = {statistics_dir}")
 
     print("\nTo set these environment variables in your current shell, run:")
     print(f"export DFT_DATA='{data_dir}'")
     print(f"export DFT_MODELS='{models_dir}'")
-    print(f"export DFT_STATISTICS='{statistics_dir}'")
     print("\nTo make them permanent, add the above lines to your ~/.zshrc file.")
 
     ask_download_models(models_dir, repo_id=REPO_ID)
-    ask_download_dataset_statistics(statistics_dir, repo_id=REPO_ID)
+    ask_download_dataset_statistics(data_dir, repo_id=REPO_ID)
 
     print("\n✅ Setup complete! 🎉")
 

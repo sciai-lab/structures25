@@ -1,3 +1,6 @@
+"""Command-line interface for running MLDFT orbital-free density functional calculations on xyz
+files."""
+
 import argparse
 import os
 import sys
@@ -101,6 +104,20 @@ def _config_to_log_dict(config: Any) -> Mapping[str, Any] | None:
     return {"value": config}
 
 
+def _stringify_for_logging(value: Any) -> Any:
+    if isinstance(value, Path):
+        return str(value)
+    if isinstance(value, tuple):
+        return tuple(_stringify_for_logging(v) for v in value)
+    if isinstance(value, list):
+        return [_stringify_for_logging(v) for v in value]
+    if isinstance(value, set):
+        return {_stringify_for_logging(v) for v in value}
+    if isinstance(value, Mapping):
+        return {key: _stringify_for_logging(val) for key, val in value.items()}
+    return value
+
+
 def log_config(base_args, model_args, optimizer_args, logger):
     """Log the configuration to the logger."""
 
@@ -115,7 +132,7 @@ def log_config(base_args, model_args, optimizer_args, logger):
             logger.info("not provided")
         else:
             for key, val in cfg_dict.items():
-                logger.info(f"{key}: {val}")
+                logger.info(f"{key}: {_stringify_for_logging(val)}")
         logger.info("")
 
 
@@ -148,7 +165,7 @@ def save_sample(sample: OFData, energies: Energies, samplefile: Path) -> None:
 def add_sad_kwargs(ofdft_kwargs: dict, basis_info: BasisInfo) -> None:
     """Inject SAD initialization options into the OFDFT configuration."""
     dataset_statistics_path = (
-        Path(os.environ["DFT_STATISTICS"])
+        Path(os.environ["DFT_DATA"])
         / "sciai-test-mol/dataset_statistics/dataset_statistics_labels_no_basis_transforms_e_kin_plus_xc.zarr/"
     )
     sad_guess_kwargs = dict(

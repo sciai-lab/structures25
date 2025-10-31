@@ -1249,7 +1249,7 @@ def get_KSDFT_Hartree_potential(
     mol: gto.Mole, gamma: np.ndarray, hermitian: int = 1, **kwargs
 ) -> np.ndarray:
     r"""Wrapper around the get_j function from pyscf which returns the potential matrix for the
-    Hartree potential. Necessary for checking the quality of the density optimisation.
+    Hartree potential. Necessary for checking the quality of the density optimization.
 
     .. math::
 

@@ -36,7 +36,7 @@ mathjax3_config = {
 
 
 intersphinx_mapping = {
-    "torch": ("https://pytorch.org/docs/main/", None),
+    "torch": ("https://docs.pytorch.org/docs/main/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pyscf": ("https://pyscf.org/", None),
     "e3nn": ("https://docs.e3nn.org/en/latest/", None),
