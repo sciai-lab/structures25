@@ -54,7 +54,7 @@ Now you can either go to the replication guide [REPLICATION_GUIDE.md](REPLICATIO
 
 ## Usage
 
-The full usage manual now lives in our documentation. Visit the [Usage Guide](https://sciai-lab.github.io/structures25/usage.html) for detailed instructions on data generation, training, and density optimisation workflows. To reproduce the results from our paper, continue to use [REPLICATION_GUIDE.md](REPLICATION_GUIDE.md). After building the docs locally, you can open `docs/build/html/usage.html`.
+The full usage manual now lives in our documentation. Visit the [Usage Guide](https://sciai-lab.github.io/structures25/usage.html) for detailed instructions on data generation, training, and density optimization workflows. To reproduce the results from our paper, continue to use [REPLICATION_GUIDE.md](REPLICATION_GUIDE.md). After building the docs locally, you can open `docs/build/html/usage.html`.
 
 ## Additional information
 

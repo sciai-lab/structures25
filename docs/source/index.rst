@@ -3,6 +3,7 @@ STRUCTURES25 Documentation
 
 Welcome to the documentation for STRUCTURES25! This package enables Orbital-Free Density Functional Theory (OF-DFT) calculations by learning the kinetic energy functional from data using equivariant graph neural networks.
 For installation instructions, see the :doc:`Installation Guide <installation>`. To get familiar with the workflow, head to the :doc:`Usage Guide <usage>`.
+The code is available on `GitHub <https://github.com/sciai-lab/structures25>`.
 
 .. image:: https://github.com/user-attachments/assets/00abb696-95e3-4aaa-857b-2b7548d45646
    :alt: STRUCTURES25 Overview

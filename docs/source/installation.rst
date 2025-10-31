@@ -28,6 +28,14 @@ Use this option if you simply want to run inference with the released checkpoint
 
       uv pip install mldft torch-scatter torch-sparse torch-cluster --find-links https://data.pyg.org/whl/torch-2.4.1+cu124.html git+https://github.com/sciai-lab/tensor_frames.git@cd1addfd3c82a47095c9961ab999dcabfab4c21d
 
+3. Run the helper script to configure data/model directories and download pretrained assets:
+
+.. code-block:: bash
+
+   mldft_setup
+
+The script prompts for storage locations (defaults: ``$HOME/dft_data`` and ``$HOME/dft_models``) and optionally fetches pretrained QM9/QMUGS checkpoints as well as the dataset statistics needed for the ``SAD`` initialization.
+
 
 GitHub Clone (Full Workflow)
 ----------------------------
@@ -73,23 +81,10 @@ Install With Pip
 
    pip install -r requirements.txt -e .
 
-
-Post-Install Setup
-------------------
-
-Run the helper script to configure data/model directories and download pretrained assets:
-
-.. code-block:: bash
-
-   mldft_setup
-
-The script prompts for storage locations (defaults: ``$HOME/dft_data`` and ``$HOME/dft_models``), exports them as ``DFT_DATA`` and ``DFT_MODELS``, and optionally fetches pretrained QM9/QMUGS checkpoints as well as the dataset statistics needed for the ``SAD`` initialization.
-
-
 Environment Variables
 ---------------------
 
-Ensure the core environment variables are defined before running density optimisation:
+Ensure the core environment variables are defined before running density optimization:
 
 .. code-block:: bash
 

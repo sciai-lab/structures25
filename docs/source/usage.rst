@@ -3,7 +3,7 @@ Usage Guide
 
 This guide provides a general overview of how to work with STRUCTURES25 once the project is installed. For instructions on reproducing the experiments from our paper, refer to the `REPLICATION_GUIDE.md <https://github.com/sciai-lab/structures25/blob/main/REPLICATION_GUIDE.md>`_ in the repository.
 
-We rely on `Hydra <https://hydra.cc/docs/intro/>`_ to manage configurations. The main configuration files are located in ``configs/``. You can
+We rely on `Hydra <https://hydra.cc/docs/intro/>`_ to manage configurations. The main configuration files are located in ``configs/``.
 
 Data Generation
 ---------------
@@ -16,7 +16,7 @@ Our datasets are available at `Dryad <https://datadryad.org/dataset/doi:10.5061/
 
    .. code-block:: bash
 
-      python mldft/datagen/kohn_sham_dataset.py dataset=<your_dataset_config_name> n_molecules=1000 start_idx=0
+      mldft_ks dataset=<your_dataset_config_name> n_molecules=1000 start_idx=0
 
 4. Based on the Kohn-Sham results, perform density fitting, compute energy and gradients, and save them as labels for the machine learning model in ``$DFT_DATA/dataset/labels``:
 
@@ -43,8 +43,6 @@ Our datasets are available at `Dryad <https://datadryad.org/dataset/doi:10.5061/
 
       python mldft/ml/compute_dataset_statistics.py data=<your_dataset_config_name>
 
-Once these steps are complete, continue with the :ref:`training` section.
-
 .. _training:
 
 Training
@@ -54,7 +52,7 @@ Start training with:
 
 .. code-block:: bash
 
-   python mldft/ml/train.py data=<train_data_config> model=<model_config>
+   mldft_train data=<train_data_config> model=<model_config>
 
 Key settings:
 
@@ -71,10 +69,10 @@ To run density optimization on a dataset in the project format:
 
 .. code-block:: bash
 
-   python mldft/ofdft/run_density_optimization run_path=<path_to_ml_model> \
+   mldft_denop run_path=<path_to_ml_model> \
        n_molecules=<number_of_molecules> device=<device> initialization=<initialization> num_devices=<num_devices>
 
-- ``path_to_model``: Path to the model relative to ``DFT_MODELS``.
+- ``run_path``: Path to the model relative to ``DFT_MODELS``.
 - ``n_molecules``: Number of molecules to compute.
 - ``device``: Target device (for example ``cuda`` or ``cpu``).
 - ``initialization``: Initialization strategy: ``sad``, ``minao``, or ``hückel``. The ``sad`` option requires matching dataset statistics.
@@ -84,7 +82,7 @@ By default the command runs on the validation split of the dataset used during t
 On Arbitrary Molecules
 ^^^^^^^^^^^^^^^^^^^^^^
 
-To optimise densities for molecules from standalone ``.xyz`` files:
+To optimize densities for molecules from standalone ``.xyz`` files:
 
 .. code-block:: bash
 
@@ -104,4 +102,4 @@ If you have installed the pretrained models using ``mldft_setup``, you can refer
 
    mldft xyzfile --model str25_qmugs
 
-The optimisation result is saved as a ``.pt`` file matching the basename of the input ``.xyz`` file.
+The optimization result is saved as a ``.pt`` file matching the basename of the input ``.xyz`` file.
