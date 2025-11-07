@@ -360,7 +360,7 @@ def main() -> None:
         "--initialization",
         type=str,
         default="minao",
-        choices=["minao", "sad", "hueckel"],
+        choices=["minao", "sad", "sad_default", "hueckel"],
         dest="base_initialization",
         help="Method for initializing the electron density.",
     )

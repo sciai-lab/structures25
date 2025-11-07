@@ -66,8 +66,11 @@ def initial_guess(
             ks_basis,
             normalize=normalize_initial_guess,
         )
-    elif initial_guess_str == "sad":
-        guesser = SADGuesser.from_dataset_statistics(**sad_guess_kwargs)
+    elif initial_guess_str == "sad" or initial_guess_str == "sad_default":
+        if initial_guess_str == "sad":
+            guesser = SADGuesser.from_dataset_statistics(**sad_guess_kwargs)
+        else:
+            guesser = SADGuesser.from_default_qm9_stats()
         guesser = guesser.to(device=sample.coeffs.device)
 
         # this is a bit of a hack, but we need the untransformed basis integrals, and this is one way to get them
