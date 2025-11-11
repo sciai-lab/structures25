@@ -359,7 +359,7 @@ def main() -> None:
     parser.add_argument(
         "--initialization",
         type=str,
-        default="minao",
+        default="sad_default",
         choices=["minao", "sad", "sad_default", "hueckel"],
         dest="base_initialization",
         help="Method for initializing the electron density.",
