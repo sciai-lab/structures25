@@ -359,10 +359,14 @@ def main() -> None:
     parser.add_argument(
         "--initialization",
         type=str,
-        default="minao",
-        choices=["minao", "sad", "hueckel"],
+        default="sad_default",
+        choices=["sad_default", "sad", "minao", "hueckel"],
         dest="base_initialization",
-        help="Method for initializing the electron density.",
+        help=(
+            "Initial electron density guess. 'sad_default' uses QM9 statistics; "
+            "'sad' loads dataset statistics from $DFT_DATA/sciai-test-mol/dataset_statistics; "
+            "'minao' and 'hueckel' rely on KS density fitting (expensive for large molecules)."
+        ),
     )
     parser.add_argument(
         "--no-normalized-initialization",
