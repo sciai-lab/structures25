@@ -75,7 +75,7 @@ To run density optimization on a dataset in the project format:
 - ``run_path``: Path to the model relative to ``DFT_MODELS``.
 - ``n_molecules``: Number of molecules to compute.
 - ``device``: Target device (for example ``cuda`` or ``cpu``).
-- ``initialization``: Initialization strategy: ``sad``, ``minao``, or ``hückel``. The ``sad`` option requires matching dataset statistics.
+- ``initialization``: Initialization strategy: ``sad``, ``sad_default``,  ``minao``, or ``hueckel``. The ``sad`` option requires matching dataset statistics. ``sad_default`` is using the dataset statistics of ground states of the QM9 dataset. ``minao`` and ``hückel`` first predict the density in a Kohn-Sham basis and require density fitting, which becomes expensive for large molecules.
 
 By default the command runs on the validation split of the dataset used during training. Override ``split_file_path`` to load a different split file and ``split`` to switch between the ``train``, ``val``, and ``test`` partitions. Results are written to ``density_optimization.pdf`` and ``density_optimization_summary.pdf``.
 

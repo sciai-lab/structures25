@@ -140,8 +140,7 @@ def density_optimization(
         optimizer: Optimizer used for the density optimization process.
         func_factory: FunctionalFactory object used to construct the energy functional.
         callback: ConvergenceCallback object to store the optimization history.
-        initialization:  Which initial guess to use.
-        max_xc_memory: Maximum memory for the XC functional.
+        initialization: Initial guess method ('minao', 'sad', 'sad_default', 'hueckel', 'dumb') or torch.Tensor of coefficients. 'sad' requires dataset statistics via sad_guess_kwargs; 'sad_default' uses QM9 defaults. 'minao'/'hueckel' use KS density fitting (expensive for large molecules).        max_xc_memory: Maximum memory for the XC functional.
         normalize_initial_guess: Whether to normalize the initial guess to the correct number of electrons.
         ks_basis: Basis set to use for the initial guess.
         proj_minao_module: Lightning Module used for the proj_minao initial guess. Only required if initialization is 'proj_minao'.
@@ -240,7 +239,8 @@ def density_optimization_with_label(
         sample: OFData sample object containing required tensors for the functional.
         mol: Molecule object used for the initial guess and building the grid.
         optimizer: Optimizer used for the density optimization process.
-        initial_guess_str: Which initial guess to use.
+        max_xc_memory: Maximum memory for the XC functional.
+        initialization: Initial guess method ('minao', 'sad', 'sad_default', 'hueckel', 'dumb', 'label') or torch.Tensor of coefficients. 'sad' requires dataset statistics via sad_guess_kwargs; 'sad_default' uses QM9 defaults. 'minao'/'hueckel' use KS density fitting (expensive for large molecules).
         normalize_initial_guess: Whether to normalize the initial guess to the correct number of electrons.
         ks_basis: Basis set to use for the initial guess.
         proj_minao_module: Lightning Module used for the proj_minao initial guess. Only required if initial_guess_str is 'proj_minao'.
