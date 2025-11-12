@@ -366,6 +366,7 @@ def plot_orbital(
     plotter: pv.Plotter = None,
     figsize: tuple[int, int] = None,
     title: str = None,
+    **plot_molecule_kwargs,
 ) -> pv.Plotter:
     """Plot an electron orbital using pyvista. By default, the orbital is plotted as a volume.
 
@@ -430,7 +431,7 @@ def plot_orbital(
 
     if plot_molecule:
         mol = cube.mol
-        pl.add_mesh(**get_sticks_mesh_dict(mol))
+        pl.add_mesh(**get_sticks_mesh_dict(mol, **plot_molecule_kwargs))
 
     if mode in ["isosurface", "nested_isosurfaces"]:
         if isinstance(isosurface_quantile, float):
@@ -456,12 +457,12 @@ def plot_orbital(
         iso_mesh["quantile"] = np.zeros(iso_mesh.n_points)
         iso_mesh["opacity"] = np.zeros(iso_mesh.n_points)
 
-        for quantile, isosurface_value in zip(quantiles, isosurface_values):
-            mask = iso_mesh["data"] == isosurface_value
-
-            # squaring looks good with 'seismic' colormap
-            iso_mesh["quantile"][mask] = quantile
-            iso_mesh["opacity"][mask] = 1 - np.abs(quantile)
+        # for every point in the mesh, find the closest isosurface value
+        # and assign the corresponding quantile
+        abs_value_differences = np.abs(iso_mesh["data"][:, None] - isosurface_values[None, :])
+        closest_isosurface_value_indices = np.argmin(abs_value_differences, axis=1)
+        iso_mesh["quantile"] = quantiles[closest_isosurface_value_indices]
+        iso_mesh["opacity"] = 1 - np.abs(iso_mesh["quantile"])
 
         if mode == "nested_isosurfaces":
             # add a set of nested, transparent isosurfaces
