@@ -24,6 +24,7 @@ from mldft.ml.data.components.basis_transforms import (
 )
 from mldft.ml.data.components.convert_transforms import (
     PrepareForDensityOptimization,
+    ToTorch,
     str_to_torch_float_dtype,
     to_torch,
 )
@@ -783,6 +784,10 @@ class SampleGenerator:
         basis_info = instantiate(model_config.data.basis_info)
 
         transforms = instantiate(model_config.data.transforms)
+
+        for i, transform in enumerate(transforms.pre_transforms):
+            if isinstance(transform, ToTorch):
+                transforms.pre_transforms[i] = ToTorch(device=transform_device)
         add_grid = requires_grid(
             model_config.data.target_key, negative_integrated_density_penalty_weight
         )
@@ -800,8 +805,7 @@ class SampleGenerator:
         self.model_config = model_config
         self.basis_info = basis_info
 
-        if transform_device == "cuda":
-            self.transforms.device = "cuda"
+        self.transforms.device = transform_device
 
     @classmethod
     def from_run_path(
