@@ -200,11 +200,12 @@ def configure_dataset_indices(
     return dataset_indices
 
 
-def set_torch_defaults_worker(id: int, num_threads: int, device: torch.device | str):
+def set_torch_defaults_worker(id: int, num_threads: int, device: torch.device | str | None = None):
     """Set the torch defaults for a dataloader worker."""
     torch.set_default_dtype(torch.float64)
-    torch.set_default_device(device)
     torch.set_num_threads(num_threads)
+    if device is not None:
+        torch.set_default_device(device)
 
 
 def worker(
@@ -215,7 +216,6 @@ def worker(
     guess_path: Path | None,
     optimizer: Optimizer,
     device: str | torch.device,
-    transform_device: str | torch.device,
     num_workers: int,
     num_threads: int,
     model_dtype: str | torch.dtype,
@@ -235,11 +235,6 @@ def worker(
     """Worker process for density optimization."""
     os.environ["DENOP_PID"] = str(process_idx)
     torch.set_default_dtype(torch.float64)
-    if (num_workers == 0) and (transform_device != device):
-        logger.warning(
-            f"Setting default device to the transform device ({transform_device}) since num_workers=0."
-        )
-        torch.set_default_device(transform_device)
     torch.set_num_threads(num_threads)
     logger.remove()
     logger_format = (
@@ -261,7 +256,8 @@ def worker(
         prefetch_factor=1 if num_workers > 0 else None,
         list_keys=[],
         worker_init_fn=partial(
-            set_torch_defaults_worker, num_threads=num_threads, device=transform_device
+            set_torch_defaults_worker,
+            num_threads=num_threads,
         ),
     )
     lightning_module = MLDFTLitModule.load_from_checkpoint(checkpoint_path, map_location=device)
@@ -683,7 +679,11 @@ def run_ofdft(
         else:
             process_device = "cpu"
         if transform_device == "cuda":
-            transforms.device = f"cuda:{i % num_devices}"
+            local_transform_device = f"cuda:{i % num_devices}"
+            transforms.device = local_transform_device
+            for k, transform in enumerate(transforms.pre_transforms):
+                if isinstance(transform, ToTorch):
+                    transforms.pre_transforms[k] = ToTorch(device=local_transform_device)
         dataset = OFDataset(
             paths=[val_paths[j] for j in dataset_indices[i]],
             num_scf_iterations_per_path=[val_iterations[j] for j in dataset_indices[i]],
@@ -701,7 +701,6 @@ def run_ofdft(
                 guess_path,
                 optimizer,
                 process_device,
-                transform_device,
                 num_workers,
                 num_threads_per_process,
                 model_dtype,
