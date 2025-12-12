@@ -124,7 +124,7 @@ def pyscf_to_e3nn_local_frames_matrix(basis: Tensor, irreps: Irreps) -> Tensor:
     # Calculate the transformation matrix for transforming to the local frames inside the e3nn convention.
     wigner_D_mat = irreps.D_from_matrix(rot_mat)
 
-    return wigner_D_mat @ pyscf_to_e3nn_mat
+    return wigner_D_mat @ pyscf_to_e3nn_mat.to(wigner_D_mat.device)
 
 
 def transform_coeffs_to_local(coeffs: Tensor, irreps: Irreps, basis: Tensor) -> Tensor:
