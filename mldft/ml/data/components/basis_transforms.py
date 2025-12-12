@@ -11,6 +11,7 @@ import torch
 from loguru import logger
 from omegaconf import DictConfig
 
+from mldft.ml.data.components.convert_transforms import ToTorch
 from mldft.ml.data.components.of_data import OFData, Representation
 from mldft.ml.models.components.local_frames_module import (
     LocalBasisModule,
@@ -401,3 +402,9 @@ class MasterTransformation(torch.nn.Module):
             Representation.DUAL_VECTOR,
         )
         return sample
+
+    def set_transform_device(self, device: str | torch.device):
+        self.device = device
+        for k, transform in enumerate(self.pre_transforms):
+            if isinstance(transform, ToTorch):
+                self.pre_transforms[k] = ToTorch(device=device)
