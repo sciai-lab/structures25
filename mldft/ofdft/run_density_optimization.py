@@ -87,9 +87,12 @@ def add_density_optimization_trajectories_to_sample(
     basis_info: BasisInfo,
     save_coeff_interval: int = 100,
 ):
-    """Add the density optimization trajectories of energies and coefficients to the sample."""
+    """Add the density optimization trajectories of energies and coefficients
+    to the sample."""
 
-    sample.add_item("stopping_index", callback.stopping_index, representation=Representation.NONE)
+    sample.add_item(
+        "stopping_index", callback.stopping_index, representation=Representation.NONE
+    )
     sample.add_item(
         "trajectory_gradient_norm",
         torch.as_tensor(callback.gradient_norm, dtype=torch.float64),
@@ -102,7 +105,9 @@ def add_density_optimization_trajectories_to_sample(
     )
     sample.add_item(
         "trajectory_energy_electronic",
-        torch.as_tensor([e.electronic_energy for e in callback.energy], dtype=torch.float64),
+        torch.as_tensor(
+            [e.electronic_energy for e in callback.energy], dtype=torch.float64
+        ),
         representation=Representation.SCALAR,
     )
     sample.add_item(
@@ -114,7 +119,9 @@ def add_density_optimization_trajectories_to_sample(
     for energy_name in callback.energy[0].energies_dict.keys():
         sample.add_item(
             "trajectory_energy_" + energy_name,
-            torch.as_tensor([e[energy_name] for e in callback.energy], dtype=torch.float64),
+            torch.as_tensor(
+                [e[energy_name] for e in callback.energy], dtype=torch.float64
+            ),
             representation=Representation.SCALAR,
         )
     # This is just for convenience as of yet
@@ -136,7 +143,9 @@ def add_density_optimization_trajectories_to_sample(
         )
 
     coeff_indices = torch.arange(0, len(callback.coeffs), save_coeff_interval)
-    sample.add_item("save_coeff_interval", save_coeff_interval, representation=Representation.NONE)
+    sample.add_item(
+        "save_coeff_interval", save_coeff_interval, representation=Representation.NONE
+    )
     sample.add_item(
         "trajectory_coeffs",
         torch.stack([callback.coeffs[i] for i in coeff_indices]),
@@ -175,7 +184,9 @@ def configure_dataset_indices(
     elif molecule_choice == "seeded_random":
         np.random.seed(seed)
         # When calling this with different n_molecules, the order stays the same
-        dataset_indices = np.random.choice(dataset_size, n_molecules, replace=False)[start_idx:]
+        dataset_indices = np.random.choice(dataset_size, n_molecules, replace=False)[
+            start_idx:
+        ]
     elif isinstance(molecule_choice, (list, ListConfig)):
         if len(molecule_choice) < n_molecules:
             logger.warning(
@@ -200,12 +211,10 @@ def configure_dataset_indices(
     return dataset_indices
 
 
-def set_torch_defaults_worker(id: int, num_threads: int, device: torch.device | str | None = None):
+def set_torch_defaults_worker(id: int, num_threads: int):
     """Set the torch defaults for a dataloader worker."""
     torch.set_default_dtype(torch.float64)
     torch.set_num_threads(num_threads)
-    if device is not None:
-        torch.set_default_device(device)
 
 
 def worker(
@@ -237,9 +246,7 @@ def worker(
     torch.set_default_dtype(torch.float64)
     torch.set_num_threads(num_threads)
     logger.remove()
-    logger_format = (
-        "<green>{time:HH:mm:ss}</green>|<level>{level: <8}</level>|<level>{message}</level>"
-    )
+    logger_format = "<green>{time:HH:mm:ss}</green>|<level>{level: <8}</level>|<level>{message}</level>"
     logger.add(
         lambda msg: tqdm.write(msg, end=""),
         format=logger_format,
@@ -260,7 +267,9 @@ def worker(
             num_threads=num_threads,
         ),
     )
-    lightning_module = MLDFTLitModule.load_from_checkpoint(checkpoint_path, map_location=device)
+    lightning_module = MLDFTLitModule.load_from_checkpoint(
+        checkpoint_path, map_location=device
+    )
     lightning_module.eval()
     lightning_module.to(model_dtype)
 
@@ -328,7 +337,9 @@ def worker(
                 if hasattr(sample, "ao"):
                     sample.delete_item("ao")
                 # Transform back to untransformed basis
-                coeffs_callback = torch.stack(callback.coeffs)  # (n_iterations, n_coeffs)
+                coeffs_callback = torch.stack(
+                    callback.coeffs
+                )  # (n_iterations, n_coeffs)
                 coeffs_callback_untransformed = transform_tensor(
                     coeffs_callback.t(),
                     transformation_matrix=sample.inv_transformation_matrix.cpu(),
@@ -362,7 +373,9 @@ def worker(
         except KeyboardInterrupt:
             logger.warning("Received KeyboardInterrupt. Exiting.")
         except Exception as e:
-            logger.exception(f"Error in worker {process_idx} during density optimization: {e}")
+            logger.exception(
+                f"Error in worker {process_idx} during density optimization: {e}"
+            )
             if fail_fast:
                 raise e
             else:
@@ -384,9 +397,7 @@ def plotting_worker(
 ):
     """Worker process for handling plotting."""
     logger.remove()
-    logger_format = (
-        "<green>{time:HH:mm:ss}</green>|<level>{level: <8}</level>|<level>{message}</level>"
-    )
+    logger_format = "<green>{time:HH:mm:ss}</green>|<level>{level: <8}</level>|<level>{message}</level>"
     logger.add(
         lambda msg: tqdm.write(msg, end=""),
         format=logger_format,
@@ -571,9 +582,7 @@ def run_ofdft(
         )
 
     logger.remove()
-    logger_format = (
-        "<green>{time:HH:mm:ss}</green>|<level>{level: <8}</level>|<level>{message}</level>"
-    )
+    logger_format = "<green>{time:HH:mm:ss}</green>|<level>{level: <8}</level>|<level>{message}</level>"
     logger.add(
         lambda msg: tqdm.write(msg, end=""),
         format=logger_format,
@@ -623,7 +632,9 @@ def run_ofdft(
         ), f"Configured {num_devices} cuda devices but only {torch.cuda.device_count()} are available."
     save_dir = log_file.parent
     if save_denop_samples:
-        save_dir.mkdir(exist_ok=True)  # for saving the denop trajectories of the samples
+        save_dir.mkdir(
+            exist_ok=True
+        )  # for saving the denop trajectories of the samples
         (save_dir / "sample_trajectories").mkdir(exist_ok=True)
         torch.save(basis_info, save_dir / "sample_trajectories" / "basis_info.pt")
 
@@ -670,7 +681,9 @@ def run_ofdft(
     else:
         plot_queue = None
 
-    dataset_indices = configure_dataset_indices(len(val_paths), n_molecules, molecule_choice, seed)
+    dataset_indices = configure_dataset_indices(
+        len(val_paths), n_molecules, molecule_choice, seed
+    )
     processes = []
     dataset_indices = np.array_split(dataset_indices, num_processes)
     for i in range(num_processes):
@@ -683,7 +696,9 @@ def run_ofdft(
             transforms.device = local_transform_device
             for k, transform in enumerate(transforms.pre_transforms):
                 if isinstance(transform, ToTorch):
-                    transforms.pre_transforms[k] = ToTorch(device=local_transform_device)
+                    transforms.pre_transforms[k] = ToTorch(
+                        device=local_transform_device
+                    )
         dataset = OFDataset(
             paths=[val_paths[j] for j in dataset_indices[i]],
             num_scf_iterations_per_path=[val_iterations[j] for j in dataset_indices[i]],
@@ -842,7 +857,8 @@ class SampleGenerator:
         )
 
     def get_sample_from_mol(self, mol: gto.Mole) -> OFData:
-        """Get a sample from a molecule with the appropriate transforms applied.
+        """Get a sample from a molecule with the appropriate transforms
+        applied.
 
         Args:
             mol: The molecule.
@@ -869,7 +885,9 @@ class SampleGenerator:
         sample = to_torch(sample, device=self.model.device)
         return sample
 
-    def get_functional_factory(self, xc_functional: str | None = None) -> FunctionalFactory:
+    def get_functional_factory(
+        self, xc_functional: str | None = None
+    ) -> FunctionalFactory:
         """Get a functional factory for the model and its config.
 
         Args:
@@ -929,7 +947,9 @@ def run_singlepoint_ofdft(
         return final_energies, final_coeffs, converged
 
 
-@hydra.main(version_base="1.3", config_path="../../configs/ofdft", config_name="ofdft.yaml")
+@hydra.main(
+    version_base="1.3", config_path="../../configs/ofdft", config_name="ofdft.yaml"
+)
 def main(cfg: DictConfig):
     """Main function to use hydra main.
 
