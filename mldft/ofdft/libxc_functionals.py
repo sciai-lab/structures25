@@ -193,7 +193,7 @@ def _get_energy_and_functional_derivatives(libxc_key: str, rho: np.ndarray, grid
     Returns:
         tuple: The energy functional value and the functional derivatives with respect
         to (rho, sigma, laplacian, tau). See `libxc documentation
-        <https://www.tddft.org/programs/libxc/manual/libxc-5.1.x/>`_ for more details.
+        <https://libxc.gitlab.io/>`_ for more details.
     """
     # e_libxc: functional values at each grid point != energy density
     # e_xc = dot(e_libxc * rho, weights)
