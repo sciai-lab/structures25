@@ -182,9 +182,13 @@ class LocalBasisModule(MessagePassing):
             edge_index_centers = torch.cat(
                 [
                     # take the hydrogen atoms
-                    torch.arange(pos.shape[0])[~heavy_atom_mask].repeat_interleave(self.k),
+                    torch.arange(pos.shape[0], device=pos.device)[
+                        ~heavy_atom_mask
+                    ].repeat_interleave(self.k),
                     # take the heavy atoms
-                    torch.arange(pos.shape[0])[heavy_atom_mask].repeat_interleave(self.k),
+                    torch.arange(pos.shape[0], device=pos.device)[
+                        heavy_atom_mask
+                    ].repeat_interleave(self.k),
                 ],
                 dim=0,
             )
