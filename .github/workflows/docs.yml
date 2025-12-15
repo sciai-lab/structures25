@@ -2,8 +2,9 @@ name: Build and Deploy Documentation
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
   workflow_dispatch:
 
 env:
@@ -54,6 +55,7 @@ jobs:
           path: docs/build/html
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
