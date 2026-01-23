@@ -261,6 +261,17 @@ def parse_reps_import(rep):
     return parse_reps(rep)
 
 
+def to_no_basis_transforms_dataset_statistics(
+    dataset_statistics_path: str, transformation_name: str
+) -> str:
+    """Converts a dataset statistics path to no basis transforms by a simple replacement."""
+    return dataset_statistics_path.replace(transformation_name, "no_basis_transforms")
+
+
+OmegaConf.register_new_resolver(
+    "to_no_basis_transforms_dataset_statistics", to_no_basis_transforms_dataset_statistics
+)
+
 # getting dim of tensor rep:
 OmegaConf.register_new_resolver("get_rep_dim", lambda rep: parse_reps_import(rep).dim)
 OmegaConf.register_new_resolver("get_tensorrep_dim", lambda rep: parse_reps_import(f"t{rep}").dim)

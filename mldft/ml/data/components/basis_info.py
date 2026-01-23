@@ -453,7 +453,7 @@ class BasisInfo:
             object.
         """
         if (
-            not np.all(np.in1d(self.atomic_numbers, other.atomic_numbers))
+            not np.all(np.isin(self.atomic_numbers, other.atomic_numbers))
             or not self.n_basis <= other.n_basis
             or not self.n_types <= other.n_types
         ):
