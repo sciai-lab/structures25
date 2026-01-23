@@ -84,7 +84,7 @@ def test_get_radial_density(molecule_medium):
     coeffs *= molecule_medium.nelectron / (coeffs @ normalization_vector)
 
     radial_density = get_radial_densities(molecule_medium, center, coeffs, radii, 2030)
-    integrated_density = np.trapz(radial_density, radii)
+    integrated_density = np.trapezoid(radial_density, radii)
 
     assert radial_density.shape == (len(radii),)
     assert pytest.approx(integrated_density, rel=2e-5) == molecule_medium.nelectron
